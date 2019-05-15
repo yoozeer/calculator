@@ -493,11 +493,11 @@
                     <Setter Target="RootGrid.(RevealBrush.State)"
                         Value="PointerOver" />
                     <Setter Target="RootGrid.Background"
-                        Value="{Binding HoverBackground, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{ThemeResource AppControlHoverButtonFaceBrush}" />
                     <Setter Target="ContentPresenter.Foreground"
-                        Value="{Binding HoverForeground, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                     <Setter Target="ParenthesisCount.Foreground"
-                        Value="{Binding HoverForeground, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                   </VisualState.Setters>
                 </win:VisualState>
                 <VisualState x:Name="Pressed">
@@ -562,12 +562,12 @@
   <Style x:Key="AccentCalcButtonStyle"
        BasedOn="{StaticResource SymbolOperatorButtonStyle}"
        TargetType="Controls:CalculatorButton">
-       <!--
-       UNO TODO
+    <!--<Setter Property="HoverBackground"
+        Value="{ThemeResource SystemControlHighlightAccentRevealBackgroundBrush}" />-->
     <Setter Property="HoverBackground"
-        Value="{ThemeResource SystemControlHighlightAccentRevealBackgroundBrush}" />
+        Value="{ThemeResource SystemAccentColor}" />
     <Setter Property="HoverForeground"
-        Value="{ThemeResource SystemControlHighlightAltAltHighBrush}" />-->
+        Value="{ThemeResource SystemControlHighlightAltAltHighBrush}" />
     <Setter Property="PressBackground"
         Value="{ThemeResource AppControlHighlightAltListAccentHighRevealBackgroundBrush}" />
     <Setter Property="PressForeground"
