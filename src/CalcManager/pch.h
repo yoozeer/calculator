@@ -11,15 +11,12 @@
 #include <algorithm>
 #include <array>
 #include <cassert>
+#include <intsafe.h>
 #include <list>
+#include <ppltasks.h>
 #include <regex>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
-
-#if !defined(__EMSCRIPTEN__) && !defined(__APPLE__) && !defined(__ANDROID__)
-#include <ppltasks.h>
 #include <winerror.h>
-#include <intsafe.h>
-#endif
