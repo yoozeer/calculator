@@ -24,6 +24,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Calculator;
+using Windows.UI.Xaml.Input;
 
 namespace CalculatorApp.ViewModel
 {
@@ -2415,6 +2416,91 @@ namespace CalculatorApp.ViewModel
         {
             Announcement = GetDisplayUpdatedNarratorAnnouncement();
         }
+
+		public void OnKeyPress(object sender, KeyRoutedEventArgs e)
+		{
+			var cmd = Command.CommandNULL;
+			switch (e.Key)
+			{
+				case VirtualKey.Number0:
+					cmd = Command.Command0;
+					break;
+				case VirtualKey.Number1:
+					cmd = Command.Command1;
+					break;
+				case VirtualKey.Number2:
+					cmd = Command.Command2;
+					break;
+				case VirtualKey.Number3:
+					cmd = Command.Command3;
+					break;
+				case VirtualKey.Number4:
+					cmd = Command.Command4;
+					break;
+				case VirtualKey.Number5:
+					cmd = Command.Command5;
+					break;
+				case VirtualKey.Number6:
+					cmd = Command.Command6;
+					break;
+				case VirtualKey.Number7:
+					cmd = Command.Command7;
+					break;
+				case VirtualKey.Number8:
+					cmd = Command.Command8;
+					break;
+				case VirtualKey.Number9:
+					cmd = Command.Command9;
+					break;
+				case VirtualKey.A:
+					cmd = Command.CommandA;
+					break;
+				case VirtualKey.B:
+					cmd = Command.CommandB;
+					break;
+				case VirtualKey.C:
+					cmd = Command.CommandC;
+					break;
+				case VirtualKey.D:
+					cmd = Command.CommandD;
+					break;
+				case VirtualKey.E:
+					cmd = Command.CommandE;
+					break;
+				case VirtualKey.F:
+					cmd = Command.CommandF;
+					break;
+				case VirtualKey.Decimal:
+					cmd = Command.CommandPNT;
+					break;
+				case VirtualKey.Add:
+					cmd = Command.CommandADD;
+					break;
+				case VirtualKey.Subtract:
+					cmd = Command.CommandSUB;
+					break;
+				case VirtualKey.Multiply:
+					cmd = Command.CommandMUL;
+					break;
+				case VirtualKey.Divide:
+					cmd = Command.CommandDIV;
+					break;
+				case VirtualKey.Enter:
+					cmd = Command.CommandEQU;
+					break;
+				case VirtualKey.Back:
+					cmd = Command.CommandBACK;
+					break;
+				case VirtualKey.Escape:
+					cmd = Command.CommandCLEAR;
+					break;
+			}
+
+			if (cmd != Command.CommandNULL)
+			{
+				m_standardCalculatorManager.SendCommand(cmd);
+			}
+		}
 
         NarratorAnnouncement GetDisplayUpdatedNarratorAnnouncement()
         {

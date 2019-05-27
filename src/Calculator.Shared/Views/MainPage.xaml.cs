@@ -58,6 +58,8 @@ namespace CalculatorApp
             // UNO TODO
             // KeyboardShortcutManager.Initialize();
 
+            KeyDown += OnAppKeyDown;
+
             m_model.PropertyChanged += OnAppPropertyChanged;
 
             double sizeInInches = 0.0;
@@ -72,6 +74,13 @@ namespace CalculatorApp
             //}
         }
 
+        private void OnAppKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (m_model.CalculatorViewModel != null)
+            {
+                m_model.CalculatorViewModel.OnKeyPress(sender, e);
+            }
+        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
