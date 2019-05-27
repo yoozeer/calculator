@@ -24,6 +24,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Calculator;
+using System.Globalization;
 
 namespace CalculatorApp.ViewModel
 {
@@ -67,6 +68,7 @@ namespace CalculatorApp.ViewModel
 
         private void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string p = null) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p)); OnPropertyChanged(p); }
         private string m_DisplayValue;
+		private bool _switchingRadix;
         public string DisplayValue { get => m_DisplayValue; set { m_DisplayValue = value; RaisePropertyChanged("DisplayValue"); } }
 
 
@@ -656,25 +658,29 @@ namespace CalculatorApp.ViewModel
             return wss.ToString();
         }
 
-        public void SetPrimaryDisplay(string displayStringValue, bool isError)
-        {
-            String localizedDisplayStringValue = LocalizeDisplayValue(displayStringValue, isError);
+		public void SetPrimaryDisplay(string displayStringValue, bool isError)
+		{
+			String localizedDisplayStringValue = LocalizeDisplayValue(displayStringValue, isError);
 
-            // Set this variable before the DisplayValue is modified, Otherwise the DisplayValue will
-            // not match what the narrator is saying
-            m_CalculationResultAutomationName = CalculateNarratorDisplayValue(displayStringValue, localizedDisplayStringValue, isError);
+			// Set this variable before the DisplayValue is modified, Otherwise the DisplayValue will
+			// not match what the narrator is saying
+			m_CalculationResultAutomationName = CalculateNarratorDisplayValue(displayStringValue, localizedDisplayStringValue, isError);
 
-            DisplayValue = localizedDisplayStringValue;
+			DisplayValue = localizedDisplayStringValue;
 
-            IsInError = isError;
+			IsInError = isError;
 
-            if (IsProgrammer)
-            {
-                UpdateProgrammerPanelDisplay();
-            }
-        }
+			if (IsProgrammer && !_switchingRadix)
+			{
+				var space = " ";
+				var nonBreakingSpace = " ";
+				var trimmedDisplayValue = displayStringValue.Replace(space, string.Empty).Replace(nonBreakingSpace, string.Empty);
+				UpdateProgrammerPanelDisplay(long.Parse(trimmedDisplayValue, NumberStyles.Any, CultureInfo.InvariantCulture));
+			}
+			_switchingRadix = false;
+		}
 
-        void DisplayPasteError()
+		void DisplayPasteError()
         {
             m_standardCalculatorManager.DisplayPasteError();
         }
@@ -1812,6 +1818,7 @@ namespace CalculatorApp.ViewModel
 
         public void SwitchProgrammerModeBase(RADIX_TYPE radixType)
         {
+			_switchingRadix = true;
             if (IsInError)
             {
                 m_standardCalculatorManager.SendCommand(Command.CommandCLEAR);
@@ -2205,51 +2212,59 @@ namespace CalculatorApp.ViewModel
             return padString + binaryString;
         }
 
-        void UpdateProgrammerPanelDisplay()
-        {
-            string hexDisplayString = "";
-            string decimalDisplayString = "";
-            string octalDisplayString = "";
-            string binaryDisplayString = "";
+		void UpdateProgrammerPanelDisplay(long originalNumber)
+		{
+			string hexDisplayString = "";
+			string decimalDisplayString = "";
+			string octalDisplayString = "";
+			string binaryDisplayString = "";
 
-            if (!IsInError)
-            {
-                // we want the precision to be set to maximum value so that the varconversions result as desired
-                int precision = 64;
-                if (m_standardCalculatorManager.GetResultForRadix(16, precision) == "")
-                {
-                    hexDisplayString = DisplayValue;
-                    decimalDisplayString = DisplayValue;
-                    octalDisplayString = DisplayValue;
-                    binaryDisplayString = DisplayValue;
-                }
-                else
-                {
-                    hexDisplayString = m_standardCalculatorManager.GetResultForRadix(16, precision);
-                    decimalDisplayString = m_standardCalculatorManager.GetResultForRadix(10, precision);
-                    octalDisplayString = m_standardCalculatorManager.GetResultForRadix(8, precision);
-                    binaryDisplayString = m_standardCalculatorManager.GetResultForRadix(2, precision);
-                }
-            }
-            var localizer = LocalizationSettings.GetInstance();
-            binaryDisplayString = AddPadding(binaryDisplayString);
+			if (!IsInError)
+			{
+				// we want the precision to be set to maximum value so that the varconversions result as desired
 
-            localizer.LocalizeDisplayValue(ref hexDisplayString);
-            localizer.LocalizeDisplayValue(ref decimalDisplayString);
-            localizer.LocalizeDisplayValue(ref octalDisplayString);
-            localizer.LocalizeDisplayValue(ref binaryDisplayString);
+				//TODO_UNO fix GetResultForRadix(16, precision)
 
-            HexDisplayValue = Utils.LRO + hexDisplayString + Utils.PDF;
-            DecimalDisplayValue = Utils.LRO + decimalDisplayString + Utils.PDF;
-            OctalDisplayValue = Utils.LRO + octalDisplayString + Utils.PDF;
-            BinaryDisplayValue = Utils.LRO + binaryDisplayString + Utils.PDF;
-            HexDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedHexaDecimalAutomationFormat, GetNarratorStringReadRawNumbers(HexDisplayValue));
-            DecDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedDecimalAutomationFormat, DecimalDisplayValue);
-            OctDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedOctalAutomationFormat, GetNarratorStringReadRawNumbers(OctalDisplayValue));
-            BinDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedBinaryAutomationFormat, GetNarratorStringReadRawNumbers(BinaryDisplayValue));
-        }
+				//int precision = 64;
+				//if (m_standardCalculatorManager.GetResultForRadix(16, precision) == "")
+				//{
+				//	hexDisplayString = DisplayValue;
+				//	decimalDisplayString = DisplayValue;
+				//	octalDisplayString = DisplayValue;
+				//	binaryDisplayString = DisplayValue;
+				//}
+				//else
+				//{
+				//	hexDisplayString = m_standardCalculatorManager.GetResultForRadix(16, precision);
+				//	decimalDisplayString = m_standardCalculatorManager.GetResultForRadix(10, precision);
+				//	octalDisplayString = m_standardCalculatorManager.GetResultForRadix(8, precision);
+				//	binaryDisplayString = m_standardCalculatorManager.GetResultForRadix(2, precision);
+				//}
 
-        public void SwitchAngleType(NumbersAndOperatorsEnum num)
+				hexDisplayString = Convert.ToString(originalNumber, 16);
+				decimalDisplayString = Convert.ToString(originalNumber, 10);
+				octalDisplayString = Convert.ToString(originalNumber, 8);
+				binaryDisplayString = Convert.ToString(originalNumber, 2);
+			}
+			var localizer = LocalizationSettings.GetInstance();
+			binaryDisplayString = AddPadding(binaryDisplayString);
+
+			localizer.LocalizeDisplayValue(ref hexDisplayString);
+			localizer.LocalizeDisplayValue(ref decimalDisplayString);
+			localizer.LocalizeDisplayValue(ref octalDisplayString);
+			localizer.LocalizeDisplayValue(ref binaryDisplayString);
+
+			HexDisplayValue = Utils.LRO + hexDisplayString + Utils.PDF;
+			DecimalDisplayValue = Utils.LRO + decimalDisplayString + Utils.PDF;
+			OctalDisplayValue = Utils.LRO + octalDisplayString + Utils.PDF;
+			BinaryDisplayValue = Utils.LRO + binaryDisplayString + Utils.PDF;
+			HexDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedHexaDecimalAutomationFormat, GetNarratorStringReadRawNumbers(HexDisplayValue));
+			DecDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedDecimalAutomationFormat, DecimalDisplayValue);
+			OctDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedOctalAutomationFormat, GetNarratorStringReadRawNumbers(OctalDisplayValue));
+			BinDisplayValue_AutomationName = GetLocalizedStringFormat(m_localizedBinaryAutomationFormat, GetNarratorStringReadRawNumbers(BinaryDisplayValue));
+		}
+
+		public void SwitchAngleType(NumbersAndOperatorsEnum num)
         {
             OnButtonPressed(num);
         }
