@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using Windows.Foundation.Collections;
 using Windows.Globalization.DateTimeFormatting;
 using Windows.Storage;
@@ -22,6 +22,7 @@ using CategorySelectionInitializer = System.Tuple<CalculatorApp.CalculatorList<U
 using UnitToUnitToConversionDataMap = System.Collections.Generic.Dictionary<UnitConversionManager.Unit, System.Collections.Generic.Dictionary<UnitConversionManager.Unit, UnitConversionManager.ConversionData>>;
 using CategoryToUnitVectorMap = System.Collections.Generic.Dictionary<UnitConversionManager.Category, CalculatorApp.CalculatorList<UnitConversionManager.Unit>>;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace CalculatorApp.ViewModel
 {
@@ -505,63 +506,47 @@ namespace CalculatorApp.ViewModel
 			return TryParseStaticData(staticDataJson, staticData) && TryParseAllRatiosData(allRatiosJson, allRatiosData);
 		}
 
-		bool TryParseStaticData(String rawJson, CalculatorList<UCM.CurrencyStaticData> staticData)
+		bool TryParseStaticData(string rawJson, CalculatorList<UCM.CurrencyStaticData> staticData)
 		{
-			JsonArray data = null;
-			if (!JsonArray.TryParse(rawJson, out data))
+			try
+			{
+				var currencyStaticData = JsonConvert.DeserializeObject<UCM.CurrencyStaticData[]>(rawJson).ToList();
+				staticData.Clear();
+				foreach (var currencyData in currencyStaticData)
+				{
+					staticData.Add(currencyData);
+				}
+
+				staticData.Sort((currency1, currency2) => currency1.countryName.CompareTo(currency2.countryName) < 0);
+			}
+			catch
 			{
 				return false;
 			}
-
-			string countryCode = "";
-			string countryName = "";
-			string currencyCode = "";
-			string currencyName = "";
-			string currencySymbol = "";
-
-			string[] values = {countryCode, countryName, currencyCode, currencyName, currencySymbol};
-
-			Debug.Assert(values.Length == STATIC_DATA_PROPERTIES.Length);
-			staticData.Clear();
-			for (int i = 0; i < data.Count; i++)
-			{
-				JsonObject obj = data[i].GetObject();
-
-				countryCode = obj.GetNamedString(STATIC_DATA_PROPERTIES[0]);
-				countryName = obj.GetNamedString(STATIC_DATA_PROPERTIES[1]);
-				currencyCode = obj.GetNamedString(STATIC_DATA_PROPERTIES[2]);
-				currencyName = obj.GetNamedString(STATIC_DATA_PROPERTIES[3]);
-				currencySymbol = obj.GetNamedString(STATIC_DATA_PROPERTIES[4]);
-
-				staticData.Add(new UCM.CurrencyStaticData(countryCode, countryName, currencyCode, currencyName, currencySymbol));
-			}
-
-			// TODO - MSFT 8533667: this sort will be replaced by a WinRT call to sort localized strings
-			staticData.Sort((UCM.CurrencyStaticData unit1, UCM.CurrencyStaticData unit2) => { return unit1.countryName.CompareTo(unit2.countryName) < 0; });
 
 			return true;
 		}
 
-		public bool TryParseAllRatiosData(String rawJson, CurrencyRatioMap allRatios)
+		public bool TryParseAllRatiosData(string rawJson, CurrencyRatioMap allRatios)
 		{
-			JsonArray data = null;
-			if (!JsonArray.TryParse(rawJson, out data))
+			try
+			{
+				var ratioStaticData = JsonConvert.DeserializeObject<UCM.RatioStaticData[]>(rawJson);
+				var sourceCurrencyCode = DefaultCurrencyCode;
+				allRatios.Clear();
+
+				foreach (var radioData in ratioStaticData)
+				{
+					// Rt is ratio, An is target currency ISO code.
+					var ratio = double.Parse(radioData.rt);
+					var targetCurrencyCode = radioData.an;
+
+					allRatios.Add(targetCurrencyCode, new UCM.CurrencyRatio(ratio, sourceCurrencyCode, targetCurrencyCode));
+				}
+			}
+			catch
 			{
 				return false;
-			}
-
-			string sourceCurrencyCode = DefaultCurrencyCode;
-
-			allRatios.Clear();
-			for (int i = 0; i < data.Count; i++)
-			{
-				JsonObject obj = data[i].GetObject();
-
-				// Rt is ratio, An is target currency ISO code.
-				double relativeRatio = obj.GetNamedNumber(RATIO_KEY);
-				string targetCurrencyCode = obj.GetNamedString(CURRENCY_CODE_KEY);
-
-				allRatios.Add(targetCurrencyCode, new UCM.CurrencyRatio(relativeRatio, sourceCurrencyCode, targetCurrencyCode));
 			}
 
 			return true;
@@ -712,11 +697,11 @@ namespace CalculatorApp.ViewModel
 			DateTime epoch = default(DateTime);
 			if (m_cacheTimestamp.ToUniversalTime() != epoch.ToUniversalTime())
 			{
-				DateTimeFormatter dateFormatter = new DateTimeFormatter("{month.abbreviated} {day.integer}, {year.full}");
-				string date = dateFormatter.Format(m_cacheTimestamp);
+				// DateTimeFormatter dateFormatter = new DateTimeFormatter("{month.abbreviated} {day.integer}, {year.full}");
+				string date = m_cacheTimestamp.ToString("MMM d, yyyy", CultureInfo.InvariantCulture);
 
-				DateTimeFormatter timeFormatter = new DateTimeFormatter("shorttime");
-				string time = timeFormatter.Format(m_cacheTimestamp);
+				// DateTimeFormatter timeFormatter = new DateTimeFormatter("shorttime");
+				string time = m_cacheTimestamp.ToString("t", CultureInfo.InvariantCulture);
 
 				timestamp = LocalizationStringUtil.GetLocalizedString(m_timestampFormat, date, time);
 			}
@@ -741,15 +726,16 @@ namespace CalculatorApp.ViewModel
 					if (defaultFromToCurrencyFile != null)
 					{
 						String fileContents = await FileIO.ReadTextAsync(defaultFromToCurrencyFile);
-						JsonObject fromToObject = JsonObject.Parse(fileContents);
-						JsonObject regionalDefaults = fromToObject.GetNamedObject(m_responseLanguage);
+
+						//JsonObject fromToObject = JsonObject.Parse(fileContents);
+						//JsonObject regionalDefaults = fromToObject.GetNamedObject(m_responseLanguage);
 
 						// Get both values before assignment in-case either fails.
-						String selectedFrom = regionalDefaults.GetNamedString(FROM_KEY);
-						String selectedTo = regionalDefaults.GetNamedString(TO_KEY);
+						//String selectedFrom = regionalDefaults.GetNamedString(FROM_KEY);
+						//String selectedTo = regionalDefaults.GetNamedString(TO_KEY);
 
-						fromCurrency = selectedFrom;
-						toCurrency = selectedTo;
+						//fromCurrency = selectedFrom;
+						//toCurrency = selectedTo;
 					}
 				}
 				catch

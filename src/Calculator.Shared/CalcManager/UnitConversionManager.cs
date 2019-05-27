@@ -193,6 +193,32 @@ namespace UnitConversionManager
         public string targetCurrencyCode;
     };
 
+	public struct RatioStaticData
+	{
+		public RatioStaticData(
+			string an,
+			string ch,
+			string pc,
+			string rt,
+			string yh,
+			string yl)
+		{
+			this.an = an;
+			this.ch = ch;
+			this.pc = pc;
+			this.rt = rt;
+			this.yh = yh;
+			this.yl = yl;
+		}
+
+		public string an;
+		public string ch;
+		public string pc;
+		public string rt;
+		public string yh;
+		public string yl;
+	};
+
 	// typedef std.tuple<CalculatorList<UnitConversionManager.Unit>, UnitConversionManager.Unit, UnitConversionManager.Unit> CategorySelectionInitializer;
 	// typedef std.unordered_map<
 	//     UnitConversionManager.Unit,

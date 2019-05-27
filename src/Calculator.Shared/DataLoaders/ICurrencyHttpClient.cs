@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace CalculatorApp.DataLoaders
 {
@@ -12,7 +10,7 @@ namespace CalculatorApp.DataLoaders
 		void SetSourceCurrencyCode(string sourceCurrencyCode);
         void SetResponseLanguage(string responseLanguage);
 
-        Windows.Foundation.IAsyncOperationWithProgress<string, Windows.Web.Http.HttpProgress> GetCurrencyMetadata();
-        Windows.Foundation.IAsyncOperationWithProgress<string, Windows.Web.Http.HttpProgress> GetCurrencyRatios();
+        Task<string> GetCurrencyMetadata();
+		Task<string> GetCurrencyRatios();
 	}
 }
