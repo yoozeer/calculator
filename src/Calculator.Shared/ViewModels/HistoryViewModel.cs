@@ -253,24 +253,33 @@ namespace CalculatorApp
             ApplicationDataContainer GetHistoryContainer(CalculationManager.CALCULATOR_MODE cMode)
             {
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                ApplicationDataContainer historyContainer;
 
-                // naming container based on mode
-                string historyContainerKey = GetHistoryContainerKey(cMode);
+				if (!localSettings.Values.ContainsKey(HistoryVectorLengthKey))
+				{
+					localSettings.Values.Add(HistoryVectorLengthKey, 0);
+				}
 
-                if (localSettings.Containers.ContainsKey(historyContainerKey))
-                {
-                    historyContainer = localSettings.Containers[historyContainerKey];
-                }
-                else
-                {
-                    // create container for adding data
-                    historyContainer = localSettings.CreateContainer(historyContainerKey, ApplicationDataCreateDisposition.Always);
-                    int initialHistoryVectorLength = 0;
-                    historyContainer.Values.Add(HistoryVectorLengthKey, initialHistoryVectorLength);
-                }
+				return localSettings;
 
-                return historyContainer;
+				// UNO TODO
+                //ApplicationDataContainer historyContainer;
+
+                //// naming container based on mode
+                //string historyContainerKey = GetHistoryContainerKey(cMode);
+
+                //if (localSettings.Containers.ContainsKey(historyContainerKey))
+                //{
+                //    historyContainer = localSettings.Containers[historyContainerKey];
+                //}
+                //else
+                //{
+                //    // create container for adding data
+                //    historyContainer = localSettings.CreateContainer(historyContainerKey, ApplicationDataCreateDisposition.Always);
+                //    int initialHistoryVectorLength = 0;
+                //    historyContainer.Values.Add(HistoryVectorLengthKey, initialHistoryVectorLength);
+                //}
+
+                //return historyContainer;
             }
 
             void ClearHistoryContainer(CalculationManager.CALCULATOR_MODE cMode)
