@@ -139,10 +139,8 @@ namespace CalculatorApp
 				)
 				.AddConsole(LogLevel.Trace);
 #else
-#if !__WASM__
 			factory
 				.AddConsole(LogLevel.Error);
-#endif
 #endif
 		}
 #endif
