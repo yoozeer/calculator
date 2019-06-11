@@ -153,7 +153,6 @@ namespace CalculatorApp.ViewModel
                     m_CalculatorViewModel = new StandardCalculatorViewModel();
                 }
                 m_CalculatorViewModel.SetCalculatorType(m_mode);
-				Console.WriteLine($"m_CalculatorViewMode = {m_CalculatorViewModel}");
             }
             else if (NavCategory.IsDateCalculatorViewMode(m_mode))
             {
