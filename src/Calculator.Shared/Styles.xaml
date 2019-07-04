@@ -180,43 +180,101 @@
     </ResourceDictionary>
   </ResourceDictionary.ThemeDictionaries>-->
 
-	<!-- UNO TODO BEGIN THEME RESOURCES -->
 	<Thickness x:Key="HighContrastThicknessTop">0,0,0,0</Thickness>
 
 	<x:Double x:Key="HighContrastStrokeThickness">0</x:Double>
 
+	<!-- Original Colors -->
 	<Color x:Key="AltHighColor">#FFF2F2F2</Color>
 	<Color x:Key="ChromeMediumLowColor">#FFE0E0E0</Color>
-
 	<Color x:Key="AccentPressColor">#FFB0DCFF</Color>
-
 	<Color x:Key="AccentHoverColor">#FF0077D7</Color>
-
 	<Color x:Key="XamarinBackgroundColor">#FFEBEBEB</Color>
 
+	<ResourceDictionary.ThemeDictionaries>
+		
+		<!-- PINK THEME -->
+		<ResourceDictionary x:Key="Pink">
+				
+		</ResourceDictionary>
+	</ResourceDictionary.ThemeDictionaries>
+
+			
+	<Color x:Key="AppControlHoverButtonFaceColor">#FFFF96AA</Color>
+	<Color x:Key="AppControlPressedButtonFaceColor">#FFFFA8B8</Color>
+	<Color x:Key="SystemControlForegroundBaseHighColor">#FFFFFFFF</Color>
+	<Color x:Key="SystemControlHighlightAltBaseHighColor">#FFFFFFFF</Color>
+	<Color x:Key="SystemControlBackgroundAltMediumHighColor">#FFF85977</Color>
+	<Color x:Key="SystemAltMediumLowColor">#FFFF7F99</Color>
+	<Color x:Key="SystemControlPageTextBaseHighColor">#FFFFFFFF</Color>
+	<Color x:Key="AppChromeAcrylicHostBackdropHightLowColor">#FF242424</Color>
+	<Color x:Key="AppChromeAcrylicHostBackdropMediumLowColor">#FF242424</Color>
+	<Color x:Key="SystemControlDisabledBaseLowColor">#FF686868</Color>
+	<Color x:Key="SystemControlDisabledBaseLow2Color">#66FFFFFF</Color>
+	<Color x:Key="SystemControlHyperlinkBaseHighColor">#FFF85977</Color>
+	<Color x:Key="SystemControlHighlightAltBaseMediumHighColor">#66FFFFFF</Color>
+	<Color x:Key="SystemControlHighlightAltBaseMediumColor">#55FFFFFF</Color>
+	<Color x:Key="NavigationViewItemForgroundColor">#FF000000</Color>
+	
+	<!--  -->
+	
+	<SolidColorBrush x:Key="AppControlHoverButtonFaceBrush"
+					 Color="{ThemeResource AppControlHoverButtonFaceColor}" />
+	<SolidColorBrush x:Key="AppControlPressedButtonFaceBrush"
+					 Color="{ThemeResource AppControlPressedButtonFaceColor}" />
+	<SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush"
+					 Color="{ThemeResource SystemControlForegroundBaseHighColor}" />
+	<SolidColorBrush x:Key="SystemControlHighlightAltBaseHighBrush"
+					 Color="{ThemeResource SystemControlHighlightAltBaseHighColor}" />
+	<SolidColorBrush x:Key="SystemControlBackgroundAltMediumHighBrush"
+					 Color="{ThemeResource SystemControlBackgroundAltMediumHighColor}" />
+	<SolidColorBrush x:Key="SystemControlPageTextBaseHighBrush"
+					 Color="{ThemeResource SystemControlPageTextBaseHighColor}" />
+	<SolidColorBrush x:Key="AppChromeAcrylicHostBackdropMediumLowBrush"
+					 Color="{ThemeResource AppChromeAcrylicHostBackdropMediumLowColor}" />
+	<SolidColorBrush x:Key="SystemControlDisabledBaseLowBrush"
+					 Color="{ThemeResource SystemControlDisabledBaseLowColor}" />
+	<SolidColorBrush x:Key="SystemControlDisabledBaseLow2Brush"
+					 Color="{ThemeResource SystemControlDisabledBaseLow2Color}" />
+	
+	<SolidColorBrush x:Key="AppBackgroundAltMediumLowBrush"
+					 Color="{ThemeResource SystemAltMediumLowColor}" />
+	<SolidColorBrush x:Key="SystemControlHyperlinkBaseHighBrush"
+					 Color="{ThemeResource SystemControlHyperlinkBaseHighColor}" />
+			
+	<SolidColorBrush x:Key="SystemControlHighlightAltBaseMediumHighBrush"
+					 Color="{ThemeResource SystemControlHighlightAltBaseMediumHighColor}" />
+	<SolidColorBrush x:Key="SystemControlHighlightAltBaseMediumBrush"
+					 Color="{ThemeResource SystemControlHighlightAltBaseMediumColor}" />
+
+	<SolidColorBrush x:Key="NavigationViewItemForgroundBrush"
+					 Color="{ThemeResource NavigationViewItemForgroundColor}" />
+	
+
 	<SolidColorBrush x:Key="AccentPressBackgroundColorBrush"
-					 Color="{StaticResource AccentPressColor}" />
+					 Color="{ThemeResource AccentPressColor}" />
 
 	<SolidColorBrush x:Key="AccentHoverBackgroundColorBrush"
-					 Color="{StaticResource AccentHoverColor}" />
+					 Color="{ThemeResource AccentHoverColor}" />
 
 	<SolidColorBrush x:Key="AccentPressForegroundColorBrush"
-					 Color="White" />
+					 Color="{ThemeResource AccentPressForegroundColor}" />
 
 	<SolidColorBrush x:Key="AccentHoverForegroundColorBrush"
-					 Color="White" />
+					 Color="{ThemeResource AccentPressForegroundColor}" />
 
 	<SolidColorBrush x:Key="SystemControlBackgroundAltHighBrush"
-					 Color="{StaticResource AltHighColor}" />
+					 Color="{ThemeResource AltHighColor}" />
 
 	<SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush"
-					 Color="{StaticResource ChromeMediumLowColor}" />
+					 Color="{ThemeResource ChromeMediumLowColor}" />
 
 	<SolidColorBrush x:Key="TitleBarBackgroundTransparentBrush"
 					 Color="Transparent" />
 
+	<!-- !!! -->
 	<SolidColorBrush x:Key="TitleBarForegroundBaseHighBrush"
-					 Color="{StaticResource SystemBaseHighColor}" />
+					 Color="{ThemeResource SystemBaseHighColor}" />
 
 	<SolidColorBrush x:Key="SystemControlBackgroundTransparentBrush"
 					 Color="Transparent" />
@@ -224,35 +282,39 @@
 	<SolidColorBrush x:Key="SystemControlHighlightTransparentBrush"
 					 Color="Transparent" />
 
+	<!-- !!! 
 	<SolidColorBrush x:Key="AppBackgroundAltMediumLowBrush"
 					 Color="{ThemeResource SystemAltMediumLowColor}" />
-
+-->
 	<SolidColorBrush x:Key="AppControlPageTextBaseMediumHighBrush"
-					 Color="{StaticResource SystemBaseMediumHighColor}" />
+					 Color="{ThemeResource SystemBaseMediumHighColor}" />
 
 	<SolidColorBrush x:Key="XamarinBackgroundBrush"
-					 Color="{StaticResource XamarinBackgroundColor}" />
+					 Color="{ThemeResource XamarinBackgroundColor}" />
 
-	<win:RevealBackgroundBrush x:Key="AppControlHoverButtonFaceBrush"
+<!--	<win:RevealBackgroundBrush x:Key="AppControlHoverButtonFaceBrush"
 							   Color="#17000000" />
 
+	 !!! 
 	<xamarin:SolidColorBrush x:Key="AppControlHoverButtonFaceBrush"
 							 Color="{ThemeResource SystemColorHighlightColor}" />
 
 	<win:RevealBackgroundBrush x:Key="AppControlPressedButtonFaceBrush"
-							   Color="#30000000" />
+							   Color="#30000000" />-->
 
+	<!-- !!! -->
 	<xamarin:SolidColorBrush x:Key="AppControlPressedButtonFaceBrush"
 							 Color="{ThemeResource SystemColorButtonFaceColor}" />
 
+	<!-- !!! -->
 	<SolidColorBrush x:Key="AppControlTransparentAccentColorBrush"
 					 Color="{ThemeResource SystemAccentColor}" />
 
 	<SolidColorBrush x:Key="AppControlPageTextBaseHighColorBrush"
-					 Color="{StaticResource SystemBaseHighColor}" />
+					 Color="{ThemeResource SystemBaseHighColor}" />
 
 	<SolidColorBrush x:Key="AppControlPageTextRedColorBrush"
-					 Color="Red" />
+					 Color="{ThemeResource AppControlPageTextRedColor}" />
 
 	<win:RevealBorderBrush x:Key="AppControlForegroundTransparentRevealBorderBrush"
 						   FallbackColor="Transparent"
@@ -262,14 +324,17 @@
 	<xamarin:SolidColorBrush x:Key="AppControlForegroundTransparentRevealBorderBrush"
 							 Color="Transparent" />
 
+	<!-- !!! -->
 	<win:RevealBackgroundBrush x:Key="AppControlHighlightAltListAccentHighRevealBackgroundBrush"
 							   TargetTheme="Dark"
 							   Color="{ThemeResource SystemAccentColorDark3}"
 							   FallbackColor="{ThemeResource SystemAccentColorDark3}" />
 
+	<!-- !!! -->
 	<xamarin:SolidColorBrush x:Key="AppControlHighlightAltListAccentHighRevealBackgroundBrush"
 							 Color="{ThemeResource SystemColorHighlightTextColor}" />
 
+	<!-- !!! 
 	<win:AcrylicBrush x:Key="AppChromeAcrylicHostBackdropMediumLowBrush"
 					  BackgroundSource="HostBackdrop"
 					  FallbackColor="{ThemeResource SystemChromeMediumColor}"
@@ -278,9 +343,8 @@
 
 	<xamarin:SolidColorBrush x:Key="AppChromeAcrylicHostBackdropMediumLowBrush"
 							 Color="{ThemeResource SystemColorWindowColor}" />
-
-	<!-- UNO TODO END THEME RESOURCES -->
-
+	-->
+	
 	<!-- Min Window Height/Width -->
 	<x:Double x:Key="AppMinWindowHeight">500</x:Double>
 	<x:Double x:Key="AppMinWindowWidth">320</x:Double>
@@ -395,7 +459,7 @@
 								<VisualState x:Name="Disabled">
 									<VisualState.Setters>
 										<Setter Target="ContentPresenter.Foreground"
-												Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+												Value="{ThemeResource SystemControlDisabledBaseLow2Brush}" />
 										<Setter Target="ContentPresenter.BorderThickness"
 												Value="0" />
 									</VisualState.Setters>
@@ -731,7 +795,10 @@
 									  Padding="0,0,0,0"
 									  Style="{ThemeResource ResultsScrollerSnapped}"
 									  AutomationProperties.AccessibilityView="Raw">-->
-						<Viewbox Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Height="75">
+						<Viewbox Grid.Column="1"
+								 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								 Height="75">
 
 							<TextBlock x:Name="NormalOutput"
 									   Margin="{TemplateBinding DisplayMargin}"
@@ -744,7 +811,7 @@
 									   Text="{TemplateBinding DisplayValue}"
 									   TextAlignment="{TemplateBinding HorizontalContentAlignment}"
 									   TextWrapping="NoWrap" />
-						<!--</ScrollViewer>-->
+							<!--</ScrollViewer>-->
 						</Viewbox>
 
 						<HyperlinkButton x:Name="ScrollLeft"
@@ -839,7 +906,10 @@
 									  Padding="0,0,0,0"
 									  Style="{ThemeResource ResultsScrollerSnapped}"
 									  AutomationProperties.AccessibilityView="Raw">-->
-						<Viewbox Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Height="75">
+						<Viewbox Grid.Column="1"
+								 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								 Height="75">
 
 							<TextBlock x:Name="NormalOutput"
 									   Margin="{TemplateBinding DisplayMargin}"
@@ -852,7 +922,7 @@
 									   Text="{TemplateBinding DisplayValue}"
 									   TextAlignment="{TemplateBinding HorizontalContentAlignment}"
 									   TextWrapping="NoWrap" />
-						<!--</ScrollViewer>-->
+							<!--</ScrollViewer>-->
 						</Viewbox>
 
 						<HyperlinkButton x:Name="ScrollLeft"
@@ -950,7 +1020,10 @@
 									  Padding="0,0,0,0"
 									  Style="{ThemeResource ResultsScrollerSnapped}"
 									  AutomationProperties.AccessibilityView="Raw">-->
-						<Viewbox Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Height="75">
+						<Viewbox Grid.Column="1"
+								 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								 Height="75">
 
 							<TextBlock x:Name="normalOutput"
 									   Margin="{TemplateBinding DisplayMargin}"
@@ -963,7 +1036,7 @@
 									   Text="{TemplateBinding DisplayValue}"
 									   TextAlignment="{TemplateBinding HorizontalContentAlignment}"
 									   TextWrapping="NoWrap" />
-						<!--</ScrollViewer>-->
+							<!--</ScrollViewer>-->
 						</Viewbox>
 
 						<HyperlinkButton x:Name="scrollLeft"

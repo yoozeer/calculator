@@ -61,6 +61,8 @@
 			   TargetType="NavigationViewItem">
 			<Setter Property="KeyTipPlacementMode"
 					Value="Right" />
+			<Setter Property="Foreground"
+					Value="{ThemeResource NavigationViewItemForgroundBrush}" />
 		</Style>
 	</Page.Resources>
 
@@ -199,6 +201,7 @@
 						   HorizontalAlignment="Left"
 						   VerticalAlignment="Top"
 						   Style="{StaticResource SubtitleTextBlockStyle}"
+						   Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
 						   Text="{x:Bind Model.CategoryName, Mode=OneWay}" />
 
 				<Border x:Name="CalcHolder">
