@@ -79,6 +79,7 @@ namespace CalculatorApp
 				var theme = parameters.GetValues("Theme").FirstOrDefault();
 				if(theme != null)
 				{
+					Console.WriteLine($"Applying custom theme: {theme}.");
 					Uno.UI.ApplicationHelper.RequestedCustomTheme = theme;
 				}
 			}
