@@ -43,13 +43,13 @@
 			<Color x:Key="AppControlPressedButtonFaceColor">#FFFFA8B8</Color>
 			<Color x:Key="SystemControlForegroundBaseHighColor">#FFFFFFFF</Color>
 			<Color x:Key="SystemControlHighlightAltBaseHighColor">#FFFFFFFF</Color>
-			<Color x:Key="SystemControlBackgroundAltMediumHighColor">#FFF85977</Color>
-			<Color x:Key="SystemAltMediumLowColor">#FFFF7F99</Color>
+			<Color x:Key="SystemControlBackgroundAltMediumHighColor">#FFFF7F99</Color>
+			<Color x:Key="SystemAltMediumLowColor">#FFF85977</Color>
 			<Color x:Key="SystemControlPageTextBaseHighColor">#FFFFFFFF</Color>
 			<Color x:Key="AppChromeAcrylicHostBackdropHightLowColor">#FF343434</Color>
 			<Color x:Key="AppChromeAcrylicHostBackdropMediumLowColor">#FF343434</Color>
 			<Color x:Key="SystemControlDisabledBaseLowColor">#66FFFFFF</Color>
-			<Color x:Key="SystemControlHyperlinkBaseHighColor">#FFF85977</Color>
+			<Color x:Key="SystemControlHyperlinkBaseHighColor">#FFFF7F99</Color>
 			<Color x:Key="SystemControlHighlightAltBaseMediumHighColor">#66FFFFFF</Color>
 			<Color x:Key="SystemControlHighlightAltBaseMediumColor">#55FFFFFF</Color>
 			<Color x:Key="NavigationViewItemForgroundColor">#FF000000</Color>
