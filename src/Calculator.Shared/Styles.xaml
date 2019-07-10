@@ -221,7 +221,7 @@
 			<SolidColorBrush x:Key="SystemControlHighlightTransparentBrush"
 							 Color="{ThemeResource SystemColorHighlightColor}" />
 			<SolidColorBrush x:Key="AppBackgroundAltMediumLowBrush"
-							 Color="{ThemeResource SystemColorButtonFaceColor}" />
+							 Color="#FFCECECE" />
 			<SolidColorBrush x:Key="AppControlPageTextBaseMediumHighBrush"
 							 Color="{ThemeResource SystemColorWindowTextColor}" />
 			<SolidColorBrush x:Key="AppControlHoverButtonFaceBrush"
