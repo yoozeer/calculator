@@ -36,7 +36,7 @@ Prerequisites:
 
 - Get the code:
     ```
-    git clone https://github.com/nventive/calculator
+    git clone https://github.com/unoplatform/calculator
     ```
 
 - Open [src\Calculator.sln](/src/Calculator.sln) in Visual Studio to build and run the Calculator app.
