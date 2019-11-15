@@ -11,6 +11,23 @@ jobs:
     VersionCodeOffset: 400559 # last value for the APK release
 
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 2.2.0'
+    inputs:
+      packageType: runtime
+      version: 2.2.0
+
+  - task: nventiveCanaryUpdater@5
+    displayName: 'Canary Update'
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
+    inputs:
+      solution: src/Calculator.sln
+      branchToMerge: uno
+      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
+      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
+      nugetUpdaterVersion: 2.0.2
+      packageAuthor: nventive
+
   - task: GitVersion@4
     inputs:
       updateAssemblyInfo: false   
