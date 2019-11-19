@@ -8,6 +8,7 @@ jobs:
     ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
     ANDROID_NDK_PATH: C:\Microsoft\AndroidNDK64\android-ndk-r16b
     AndroidNdkDirectory: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+    VersionCodeOffset: 400559 # last value for the APK release
 
   steps:
   - task: GitVersion@4
