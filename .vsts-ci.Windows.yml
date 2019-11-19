@@ -101,7 +101,7 @@ jobs:
     displayName: 'Publish Android Binaries'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/src/Calculator.Droid/bin/Release
-      Contents: '**/*.apk'
+      Contents: '**/*.aab'
       TargetFolder: $(build.artifactstagingdirectory)/android
       CleanTargetFolder: false
       OverWrite: false
