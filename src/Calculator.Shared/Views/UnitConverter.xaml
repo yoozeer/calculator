@@ -57,7 +57,6 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="IsPopupFullscreen" Value="True" />
 			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-			<Setter></Setter>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="ComboBox">
@@ -264,18 +263,13 @@
 								AutomationProperties.AccessibilityView="Raw" />
 							<Popup x:Name="Popup" IsLightDismissEnabled="True">
 								<Popup.Child>
-									<Grid>
-										<Grid.RowDefinitions>
-											<RowDefinition Height="*" />
-											<RowDefinition Height="320" />
-										</Grid.RowDefinitions>
-										<Border
-											x:Name="PopupBorder"
-											Grid.Row="1"
-											Background="White"
-											VerticalAlignment="Bottom">
-											<Picker
-												Height="320"
+									<Border
+										x:Name="PopupBorder"
+										Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+										Height="320"
+										VerticalAlignment="Bottom">
+										<Picker Height="320"
+												VerticalAlignment="Top"
 												Placeholder="{TemplateBinding PlaceholderText}"
 												ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
 												DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
@@ -283,8 +277,7 @@
 												ItemsSource="{TemplateBinding ItemsSource}"
 												ItemContainerStyle="{StaticResource PickerItemStyle}"
 												SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
-										</Border>
-									</Grid>
+									</Border>
 								</Popup.Child>
 							</Popup>
 						</Grid>
@@ -293,24 +286,22 @@
 			</Setter>
 		</ios:Style>
 
-		<ios:Style x:Key="PickerItemStyle"
-			   TargetType="SelectorItem">
-			<Setter Property="FontSize"
-			  Value="22" />
-			<Setter Property="FontWeight"
-			   Value="Medium" />
-			<Setter Property="VerticalContentAlignment"
-			  Value="Center" />
-			<Setter Property="HorizontalContentAlignment"
-			  Value="Center" />
+		<ios:Style x:Key="PickerItemStyle" TargetType="SelectorItem">
+			<Setter Property="FontSize" Value="22" />
+			<Setter Property="FontWeight" Value="Medium" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="SelectorItem">
-						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-							  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-							  Content="{TemplateBinding Content}"
-							  ContentTemplate="{TemplateBinding ContentTemplate}"
-							  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+						<ContentPresenter
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							Content="{TemplateBinding Content}"
+							ContentTemplate="{TemplateBinding ContentTemplate}"
+							ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+							Foreground="{TemplateBinding Foreground}"/>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
