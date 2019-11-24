@@ -329,7 +329,7 @@
 													  To="KeyBoardEntry" />
 								</VisualStateGroup.Transitions>
 								<VisualState x:Name="Normal" />
-								<win:VisualState x:Name="PointerOver">
+								<VisualState x:Name="PointerOver">
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
 												Value="PointerOver" />
@@ -338,7 +338,7 @@
 										<Setter Target="ContentPresenter.(ContentPresenter.Foreground)"
 												Value="{Binding HoverForeground, RelativeSource={RelativeSource TemplatedParent}}" />
 									</VisualState.Setters>
-								</win:VisualState>
+								</VisualState>
 								<VisualState x:Name="Pressed">
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
@@ -476,7 +476,7 @@
 													  To="KeyBoardEntry" />
 								</VisualStateGroup.Transitions>
 								<VisualState x:Name="Normal" />
-								<win:VisualState x:Name="PointerOver">
+								<VisualState x:Name="PointerOver">
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
 												Value="PointerOver" />
@@ -487,7 +487,7 @@
 										<Setter Target="ParenthesisCount.Foreground"
 												Value="{Binding HoverForeground, RelativeSource={RelativeSource TemplatedParent}}" />
 									</VisualState.Setters>
-								</win:VisualState>
+								</VisualState>
 								<VisualState x:Name="Pressed">
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
@@ -565,7 +565,7 @@
 													  To="KeyBoardEntry" />
 								</VisualStateGroup.Transitions>
 								<VisualState x:Name="Normal" />
-								<win:VisualState x:Name="PointerOver">
+								<VisualState x:Name="PointerOver">
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
 												Value="PointerOver" />
@@ -574,7 +574,7 @@
 										<Setter Target="ContentPresenter.(ContentPresenter.Foreground)"
 												Value="{ThemeResource AccentHoverForegroundColorBrush}" />
 									</VisualState.Setters>
-								</win:VisualState>
+								</VisualState>
 								<VisualState x:Name="Pressed">
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
