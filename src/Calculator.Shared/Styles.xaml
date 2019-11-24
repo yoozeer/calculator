@@ -167,7 +167,7 @@
 									   Color="#17000000" />
 
 			<xamarin:SolidColorBrush x:Key="AppControlHoverButtonFaceBrush"
-									 Color="{ThemeResource SystemColorHighlightColor}" />
+									 Color="#17000000" />
 
 			<win:RevealBackgroundBrush x:Key="AppControlPressedButtonFaceBrush"
 									   Color="#30000000" />
