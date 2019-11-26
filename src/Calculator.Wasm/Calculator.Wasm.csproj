@@ -10,7 +10,9 @@
 		<WasmShellGenerateCompressedFiles Condition="'$(Configuration)'=='Debug'">false</WasmShellGenerateCompressedFiles>
 		<MonoRuntimeDebuggerEnabled Condition="'$(Configuration)'=='Debug'">true</MonoRuntimeDebuggerEnabled>
 		<WasmShellMonoRuntimeExecutionMode Condition="$([MSBuild]::IsOsPlatform('Linux'))">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
-		<MonoWasmRuntimeConfiguration Condition="!$([MSBuild]::IsOsPlatform('Linux'))">release-dynamic</MonoWasmRuntimeConfiguration>
+
+		<!-- Release dynamic is required as of Wasm.Bootstapper 1.0.5 because of the dependency on emscripten's addFunction export -->
+		<MonoWasmRuntimeConfiguration>release-dynamic</MonoWasmRuntimeConfiguration>
 		<WasmShellIndexHtmlPath>$(MSBuildThisFileDirectory)index.html</WasmShellIndexHtmlPath>
 	</PropertyGroup>
 	<ItemGroup>
@@ -56,7 +58,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-		<PackageReference Include="Uno.UI" Version="2.0.512-dev.4143" />
+		<PackageReference Include="Uno.UI" Version="2.0.512-dev.4145" />
 		<PackageReference Include="Uno.UI.Sample.Banner" Version="1.44.0-dev.23" />
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.5" />
 		<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.298" />
