@@ -4,7 +4,7 @@
   "name": "Uno Calculator",
   "scope": "/",
   "display": "standalone",
-  "start_url": "https://calculator.platform.uno/",
+  "start_url": "/",
   "short_name": "Uno Calculator",
   "theme_color": "#0078D7",
   "description": "The Uno Calculator, a WebAssembly application developed with the Uno Platform, also available for iOS and Android.",
