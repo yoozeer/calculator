@@ -28,9 +28,10 @@ jobs:
       nugetUpdaterVersion: 2.0.2
       packageAuthor: nventive
 
-  - task: GitVersion@4
+  - task: GitVersion@5
     inputs:
-      updateAssemblyInfo: false   
+      useConfigFile: true
+      configFilePath: gitversion.yml
       
   - task: NuGetToolInstaller@0
     inputs:
@@ -98,7 +99,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword) 
+      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false

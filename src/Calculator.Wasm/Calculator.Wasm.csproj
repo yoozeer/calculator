@@ -10,7 +10,7 @@
 		<WasmShellGenerateCompressedFiles Condition="'$(Configuration)'=='Debug'">false</WasmShellGenerateCompressedFiles>
 		<MonoRuntimeDebuggerEnabled Condition="'$(Configuration)'=='Debug'">true</MonoRuntimeDebuggerEnabled>
 		<WasmShellMonoRuntimeExecutionMode Condition="$([MSBuild]::IsOsPlatform('Linux'))">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
-		<WasmPWAManifestFile Condition="'$(Configuration)'=='Debug'">manifest.json</WasmPWAManifestFile>
+		<WasmPWAManifestFile>manifest.json</WasmPWAManifestFile>
 
 		<!-- Release dynamic is required as of Wasm.Bootstapper 1.0.8 because of the dependency on emscripten's addFunction export -->
 		<MonoWasmRuntimeConfiguration>release-dynamic</MonoWasmRuntimeConfiguration>
