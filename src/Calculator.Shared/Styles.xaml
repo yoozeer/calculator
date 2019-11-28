@@ -104,7 +104,7 @@
 									   Color="#30FFFFFF" />
 
 			<xamarin:SolidColorBrush x:Key="AppControlPressedButtonFaceBrush"
-									 Color="{ThemeResource SystemColorButtonFaceColor}" />
+									 Color="#30FFFFFF" />
 
 			<SolidColorBrush x:Key="AppControlTransparentAccentColorBrush"
 							 Color="{ThemeResource SystemAccentColor}" />
@@ -128,7 +128,7 @@
 			                           Color="{ThemeResource SystemAccentColorDark3}"
 			                           FallbackColor="{ThemeResource SystemAccentColorDark3}" />
 			<xamarin:SolidColorBrush x:Key="AppControlHighlightAltListAccentHighRevealBackgroundBrush"
-			                         Color="{ThemeResource SystemColorHighlightTextColor}" />
+			                         Color="{ThemeResource SystemAccentColorDark3}" />
 
 			<win:AcrylicBrush x:Key="AppChromeAcrylicHostBackdropMediumLowBrush"
 			                  BackgroundSource="HostBackdrop"
@@ -173,7 +173,7 @@
 									   Color="#30000000" />
 
 			<xamarin:SolidColorBrush x:Key="AppControlPressedButtonFaceBrush"
-									 Color="{ThemeResource SystemColorButtonFaceColor}" />
+									 Color="#30000000" />
 			<SolidColorBrush x:Key="AppControlTransparentAccentColorBrush"
 							 Color="{ThemeResource SystemAccentColor}" />
 			<SolidColorBrush x:Key="AppControlPageTextBaseHighColorBrush"
@@ -294,11 +294,11 @@
 		<Setter Property="Foreground"
 				Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
 		<Setter Property="HoverBackground"
-				Value="{StaticResource AppControlHoverButtonFaceBrush}" />
+				Value="{ThemeResource AppControlHoverButtonFaceBrush}" />
 		<Setter Property="HoverForeground"
 				Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
 		<Setter Property="PressBackground"
-				Value="{StaticResource AppControlPressedButtonFaceBrush}" />
+				Value="{ThemeResource AppControlPressedButtonFaceBrush}" />
 		<Setter Property="PressForeground"
 				Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
 		<Setter Property="BorderThickness"
@@ -343,15 +343,10 @@
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
 												Value="Pressed" />
-										<win:Setter Target="RootGrid.Background"
+										<Setter Target="RootGrid.Background"
 													Value="{Binding PressBackground, RelativeSource={RelativeSource TemplatedParent}}" />
-										<win:Setter Target="ContentPresenter.(ContentPresenter.Foreground)"
+										<Setter Target="ContentPresenter.(ContentPresenter.Foreground)"
 													Value="{Binding PressForeground, RelativeSource={RelativeSource TemplatedParent}}" />
-										<!-- UNO TODO -->
-										<xamarin:Setter Target="RootGrid.Background"
-														Value="{ThemeResource AppControlPressedButtonFaceBrush}" />
-										<xamarin:Setter Target="ContentPresenter.(ContentPresenter.Foreground)"
-														Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
 									</VisualState.Setters>
 								</VisualState>
 								<VisualState x:Name="Disabled">
@@ -492,18 +487,12 @@
 									<VisualState.Setters>
 										<Setter Target="RootGrid.(RevealBrush.State)"
 												Value="Pressed" />
-										<win:Setter Target="RootGrid.Background"
+										<Setter Target="RootGrid.Background"
 													Value="{Binding PressBackground, RelativeSource={RelativeSource TemplatedParent}}" />
-										<win:Setter Target="ContentPresenter.Foreground"
+										<Setter Target="ContentPresenter.Foreground"
 													Value="{Binding PressForeground, RelativeSource={RelativeSource TemplatedParent}}" />
-										<win:Setter Target="ParenthesisCount.Foreground"
+										<Setter Target="ParenthesisCount.Foreground"
 													Value="{Binding PressForeground, RelativeSource={RelativeSource TemplatedParent}}" />
-										<xamarin:Setter Target="RootGrid.Background"
-														Value="{ThemeResource AppControlPressedButtonFaceBrush}" />
-										<xamarin:Setter Target="ContentPresenter.Foreground"
-														Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
-										<xamarin:Setter Target="ParenthesisCount.Foreground"
-														Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
 									</VisualState.Setters>
 								</VisualState>
 								<VisualState x:Name="Disabled">
