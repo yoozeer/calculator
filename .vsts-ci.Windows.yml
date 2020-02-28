@@ -99,7 +99,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:SkipWasmBuild=true /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false
