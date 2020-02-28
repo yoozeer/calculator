@@ -15,7 +15,7 @@
       <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI">
-      <Version>2.0.512-dev.4178</Version>
+      <Version>2.1.0-dev.1371</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>
