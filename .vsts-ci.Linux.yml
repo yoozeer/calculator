@@ -48,17 +48,15 @@ jobs:
       cd ~
       git clone https://github.com/emscripten-core/emsdk
       cd emsdk
-      ./emsdk install sdk-1.39.7
-      ./emsdk activate sdk-1.39.7
+      ./emsdk install sdk-1.39.9
+      ./emsdk activate sdk-1.39.9
 
     displayName: 'Setup Emscripten'
 
   - bash: |
       cd ~/emsdk
-      wget https://raw.githubusercontent.com/mono/mono/27247739c68faee7b2a63ae805222d4b375d2161/sdks/builds/emscripten-pr-8457.diff
       wget https://raw.githubusercontent.com/mono/mono/27247739c68faee7b2a63ae805222d4b375d2161/sdks/builds/fix-emscripten-8511.diff
       cd ~/emsdk/upstream/emscripten
-      patch -N -p1 < ~/emsdk/emscripten-pr-8457.diff
       patch -N -p1 < ~/emsdk/fix-emscripten-8511.diff
 
     displayName: 'Apply Emscripten Mono patches'
@@ -67,7 +65,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: sdk
-      version: 3.0.x
+      version: 3.1.x
       installationPath: '$(DotnetRuntimePath)'
 
   - task: GitVersion@5
