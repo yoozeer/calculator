@@ -9,7 +9,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<WasmShellGenerateCompressedFiles Condition="'$(Configuration)'=='Debug'">false</WasmShellGenerateCompressedFiles>
 		<MonoRuntimeDebuggerEnabled Condition="'$(Configuration)'=='Debug'">true</MonoRuntimeDebuggerEnabled>
-		<WasmShellMonoRuntimeExecutionMode Condition="$([MSBuild]::IsOsPlatform('Linux'))">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
+		<WasmShellMonoRuntimeExecutionMode Condition="$([MSBuild]::IsOsPlatform('Linux')) or ( $([MSBuild]::IsOsPlatform('Windows')) and '$(SkipWasmBuild)'=='' )">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
 		<WasmPWAManifestFile>manifest.json</WasmPWAManifestFile>
 		<WasmShellIndexHtmlPath>$(MSBuildThisFileDirectory)index.html</WasmShellIndexHtmlPath>
 	</PropertyGroup>
@@ -26,8 +26,10 @@
 		<LinkerDescriptor Include="LinkerConfig.xml" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+	<ItemGroup>
 		<WasmShellMonoEnvironment Include="MONO_GC_PARAMS" Value="soft-heap-limit=512m,nursery-size=64m,evacuation-threshold=66,major=marksweep" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<WasmShellMonoEnvironment Include="MONO_LOG_LEVEL" Value="debug" />
 		<WasmShellMonoEnvironment Include="MONO_LOG_MASK" Value="gc" />
 	</ItemGroup>
@@ -43,10 +45,10 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-		<PackageReference Include="Uno.UI" Version="2.1.0-dev.1402" />
+		<PackageReference Include="Uno.UI" Version="2.2.0-dev.333" />
 		<PackageReference Include="Uno.UI.Sample.Banner" Version="1.44.0-dev.23" />
-		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.1.0-dev.422" />
-		<DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.8" />
+		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.2.0-dev.16" />
+		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.2.0-dev.16" />
 	</ItemGroup>
 	<ItemGroup>
 		<MonoRuntimeMixedModeExcludedAssembly Include="Newtonsoft.Json" />
