@@ -99,10 +99,8 @@
 			<Style x:Key="HistoryItemContainerStyle"
                    BasedOn="{StaticResource HistoryMemoryItemContainerStyle}"
                    TargetType="ListViewItem">
-				<Setter Property="Margin" Value="0,0,0,20"/>
-
-				<!-- https://github.com/unoplatform/uno/issues/2188 -->
-				<ios:Setter Property="Height" Value="60"/>
+				<Setter Property="Margin"
+						Value="0,0,0,20" />
 			</Style>
 			<DataTemplate x:Key="HistoryItemTemplate" x:DataType="model:HistoryItemViewModel">
 				<StackPanel Margin="0,6,4,6"
