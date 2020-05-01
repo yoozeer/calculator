@@ -374,11 +374,7 @@ namespace CalculatorApp
 			{
 				if (_animate == null)
 				{
-#if NETFX_CORE
 					_animate = (Storyboard)Resources[nameof(Animate)];
-#else
-					_animate = StaticResources.Animate;
-#endif
 
 					foreach (var animation in _animate.Children)
 					{
@@ -397,11 +393,7 @@ namespace CalculatorApp
 			{
 				if (_animateWithoutResult == null)
 				{
-#if NETFX_CORE
 					_animateWithoutResult = (Storyboard)Resources[nameof(AnimateWithoutResult)];
-#else
-					_animateWithoutResult = StaticResources.AnimateWithoutResult;
-#endif
 
 					foreach (var animation in _animateWithoutResult.Children)
 					{
