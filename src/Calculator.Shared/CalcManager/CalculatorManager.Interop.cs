@@ -12,7 +12,7 @@ namespace CalculationManager
 {
 	public static class NativeDispatch
 	{
-#if __IOS__
+#if __IOS__ || __MACOS__
 		private const string DllPath = "__Internal"; // https://docs.microsoft.com/en-us/xamarin/ios/platform/native-interop
 #else
 		private const string DllPath = "CalcManager";
