@@ -110,6 +110,16 @@
         AssemblyInformationalVersion="$(_InformationalVersion)"
         AssemblyCopyright="Copyright (C) $(CompanyName) $([System.DateTime]::Now.Year)" />
 
+		<AssemblyInfo
+        CodeLanguage="CS"
+        OutputFile="../AssemblyVersion.macOS.cs"
+        AssemblyVersion="$(_AppVersion)"
+        AssemblyFileVersion="$(_BuildNumber)"
+        AssemblyProduct="$(ProjectName) for macOS"
+        AssemblyCompany="$(CompanyName)"
+        AssemblyInformationalVersion="$(_InformationalVersion)"
+        AssemblyCopyright="Copyright (C) $(CompanyName) $([System.DateTime]::Now.Year)" />		
+
 		<Message Text="#### Done running BuildVersion"
                      Importance="$(_MessageImportance)" />
 		<Message Text="%0A"
