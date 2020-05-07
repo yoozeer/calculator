@@ -27,7 +27,7 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>ATSApplicationFontsPath</key>
-	<string>Fonts/CalcMDL2.ttf</string>
+	<string>Fonts</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 </dict>
