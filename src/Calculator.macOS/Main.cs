@@ -8,8 +8,9 @@ namespace calculator.macOS
 		static void Main(string[] args)
 		{
 			NSApplication.Init();
+			NSApplication.SharedApplication.MainMenu = MenuHelper.GetMenu();
 			NSApplication.SharedApplication.Delegate = new App();
-			NSApplication.Main(args);  
+			NSApplication.Main(args);
 		}
 	}
 }
