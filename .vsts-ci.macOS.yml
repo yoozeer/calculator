@@ -101,8 +101,8 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Publish macOS Binaries'
     inputs:
-      SourceFolder: $(build.sourcesdirectory)/src/Calculator.macOS/bin/iPhoneSimulator/Release
-      Contents: '*.ipa'
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.macOS/bin/Release
+      Contents: '*.pkg'
       TargetFolder: $(build.artifactstagingdirectory)
       CleanTargetFolder: false
       OverWrite: false
