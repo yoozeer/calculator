@@ -1,0 +1,116 @@
+jobs:
+- job: macOS
+
+  pool:
+    vmImage: 'macOS-10.15'
+
+  variables:
+    NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
+    VersionCodeOffset: 400559 # last value for the APK release
+
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 2.2.0'
+    inputs:
+      packageType: runtime
+      version: 2.2.0
+
+  - task: nventiveCanaryUpdater@5
+    displayName: 'Canary Update'
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
+    inputs:
+      solution: src/Calculator.sln
+      branchToMerge: uno
+      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
+      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
+      nugetUpdaterVersion: 2.0.2
+      packageAuthor: nventive
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 2.1.0'
+    inputs:
+      packageType: runtime
+      version: 2.1.0
+
+  - task: UseGitVersion@5
+    inputs:
+      versionSpec: '5.x'
+      configFilePath: gitversion.yml
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 3.1.x'
+    inputs:
+      packageType: runtime
+      version: 3.1.x
+
+  - task: InstallAppleCertificate@2
+    displayName: 'Install an Apple certificate'
+    inputs:
+      certSecureFile: 'nventive-appstore-prod-20190521.p12'
+      certPwd: '$(iOSSigning.CertificatePwd)'
+      signingIdentity: '$(iOSSigning.CertificateIdentity)'
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: 'Install an Apple provisioning profile'
+    inputs:
+      provProfileSecureFile: 'Uno_Calculator.mobileprovision'
+
+  - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: 4.9.1
+      checkLatest: false
+
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '$(build.sourcesdirectory)/src/Calculator.macOS/Calculator.macOS.csproj'
+
+  - bash: |
+      cd $(build.sourcesdirectory)/src/CalcManager
+      chmod +x build_macos.sh
+      ./build_macos.sh
+
+    displayName: Build native CalcManager
+
+  - task: MSBuild@1
+    inputs:
+      solution: '$(build.sourcesdirectory)/src/build/build.csproj'
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: /r  /p:BuildPlatformTarget=iPhoneSimulator /bl:$(build.artifactstagingdirectory)/build.binlog 
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: true
+      createLogFile: true
+
+  - task: MSBuild@1
+    inputs:
+      solution: '$(build.sourcesdirectory)/src/Calculator.macOS/Calculator.macOS.csproj'
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: /r /p:Configuration=Release /p:Platform=iPhoneSimulator /bl:$(build.artifactstagingdirectory)/build.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: true
+      createLogFile: true
+
+  - task: CopyFiles@2
+    displayName: 'Publish macOS Binaries'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.macOS/bin/Release
+      Contents: '*.pkg'
+      TargetFolder: $(build.artifactstagingdirectory)
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: PublishBuildArtifacts@1
+    condition: always()
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      ArtifactName: Uno-Calculator-macOS
+      ArtifactType: Container

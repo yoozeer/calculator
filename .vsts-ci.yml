@@ -1,3 +1,4 @@
 jobs:
 - template: .vsts-ci.Windows.yml
 - template: .vsts-ci.Linux.yml
+- template: .vsts-ci.macOS.yml
