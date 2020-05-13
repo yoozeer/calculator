@@ -1,7 +1,7 @@
 ﻿using System;
 using AppKit;
 
-namespace calculator.macOS
+namespace WindowsCalculator.MacOS
 {
 	public static class MenuHelper
 	{

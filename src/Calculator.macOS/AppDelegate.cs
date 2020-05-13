@@ -1,7 +1,7 @@
 using AppKit;
 using Foundation;
 
-namespace calculator.macOS
+namespace WindowsCalculator.MacOS
 {
 
 }

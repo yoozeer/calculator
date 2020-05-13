@@ -1,7 +1,7 @@
 using AppKit;
 using CalculatorApp;
 
-namespace calculator.macOS
+namespace WindowsCalculator.MacOS
 {
 	static class MainClass
 	{

@@ -34,6 +34,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Calculator.Shared\Calculator.Shared.projitems*{093428d1-ab83-4f1a-93e9-304b44a24d1f}*SharedItemsImports = 4
+		Calculator.Shared\Calculator.Shared.projitems*{313fcf91-a6db-4585-a23e-49bbeef4784d}*SharedItemsImports = 4
 		Calculator.Shared\Calculator.Shared.projitems*{53337466-6e79-45f3-a650-1bfb93cc19b0}*SharedItemsImports = 5
 		Calculator.Shared\Calculator.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
 		Calculator.Shared\Calculator.Shared.projitems*{6aa5ec60-6865-4ba8-9f09-ee02add025e2}*SharedItemsImports = 4
