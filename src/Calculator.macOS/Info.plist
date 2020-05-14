@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleName</key>
 	<string>Uno Calc</string>
+	<key>CFBundleDisplayName</key>
+	<string>Uno Calculator</string>
 	<key>CFBundleIdentifier</key>
 	<string>uno.platform.calculator</string>
 	<key>CFBundleShortVersionString</key>
