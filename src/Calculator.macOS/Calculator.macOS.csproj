@@ -35,7 +35,9 @@
     <XamMacArch>
     </XamMacArch>
     <NoWarn>Uno0001</NoWarn>
-  </PropertyGroup>
+		<AOTMode>None</AOTMode>
+		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+	</PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>pdbonly</DebugType>
@@ -47,8 +49,8 @@
     <WarningLevel>4</WarningLevel>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CreatePackage>true</CreatePackage>
-    <EnablePackageSigning>false</EnablePackageSigning>
-    <IncludeMonoRuntime>true</IncludeMonoRuntime>
+		<EnablePackageSigning>true</EnablePackageSigning>
+		<IncludeMonoRuntime>true</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
     <UseRefCounting>true</UseRefCounting>
     <LinkMode>SdkOnly</LinkMode>
@@ -57,7 +59,10 @@
     <XamMacArch>
     </XamMacArch>
     <NoWarn>Uno0001</NoWarn>
-  </PropertyGroup>
+		<CodeSigningKey>Mac Developer</CodeSigningKey>
+		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+		<AOTMode>None</AOTMode>
+	</PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
