@@ -47,19 +47,20 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <EnableCodeSigning>false</EnableCodeSigning>
-    <CreatePackage>true</CreatePackage>
+		<EnableCodeSigning>true</EnableCodeSigning>
+		<CreatePackage>true</CreatePackage>
 		<EnablePackageSigning>true</EnablePackageSigning>
 		<IncludeMonoRuntime>true</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
     <UseRefCounting>true</UseRefCounting>
     <LinkMode>SdkOnly</LinkMode>
-    <HttpClientHandler>
+		<CodeSignEntitlements>Entitlements.plist</CodeSignEntitlements>
+		<HttpClientHandler>
     </HttpClientHandler>
     <XamMacArch>
     </XamMacArch>
     <NoWarn>Uno0001</NoWarn>
-		<CodeSigningKey>Mac Developer</CodeSigningKey>
+		<CodeSigningKey>Apple Distribution: nventive inc. (4PZ69335CF)</CodeSigningKey>
 		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
 		<AOTMode>None</AOTMode>
 	</PropertyGroup>

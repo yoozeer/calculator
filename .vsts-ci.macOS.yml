@@ -9,7 +9,8 @@ jobs:
       value: $(build.sourcesdirectory)/.nuget
     - name: VersionCodeOffset
       value: 400559 # last value for the APK release
-    - group: apple.appstore.distribution.macos # import all variables for certificate from the library in azure devops
+    - group: apple.appstore.distribution.macos
+    - group: apple.appstore.distribution
 
   steps:
   - task: UseDotNet@2
@@ -47,11 +48,18 @@ jobs:
       version: 3.1.x
 
   - task: InstallAppleCertificate@2
-    displayName: Install Apple Certificate
+    displayName: Install Bundle Apple Certificate
     inputs:
-      certSecureFile: '3rd-party-mac-developer.p12' # Certificate located in the Library's secure files
-      certPwd: '$(appleappstorecertificatepassword)' # password in Library's Variable group
+      certSecureFile: 'apple.appstore.distribution.p12'
+      certPwd: '$(appleappstorecertificatepassword)'
       keychain: 'temp'
+      deleteCert: true
+
+  - task: InstallAppleCertificate@2
+    displayName: Install PKG Apple Certificate
+    inputs:
+      certSecureFile: '3rd-party-mac-developer.p12'
+      certPwd: '$(applepkgcertificatepassword)'
       deleteCert: true
 
   - task: InstallAppleProvisioningProfile@1
