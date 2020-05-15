@@ -35,9 +35,9 @@
     <XamMacArch>
     </XamMacArch>
     <NoWarn>Uno0001</NoWarn>
-		<AOTMode>None</AOTMode>
-		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
-	</PropertyGroup>
+    <AOTMode>None</AOTMode>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>pdbonly</DebugType>
@@ -47,23 +47,23 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-		<EnableCodeSigning>true</EnableCodeSigning>
-		<CreatePackage>true</CreatePackage>
-		<EnablePackageSigning>true</EnablePackageSigning>
-		<IncludeMonoRuntime>true</IncludeMonoRuntime>
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <CreatePackage>true</CreatePackage>
+    <EnablePackageSigning>true</EnablePackageSigning>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
     <UseRefCounting>true</UseRefCounting>
     <LinkMode>SdkOnly</LinkMode>
-		<CodeSignEntitlements>Entitlements.plist</CodeSignEntitlements>
-		<HttpClientHandler>
+    <CodeSignEntitlements>Entitlements.plist</CodeSignEntitlements>
+    <HttpClientHandler>
     </HttpClientHandler>
     <XamMacArch>
     </XamMacArch>
     <NoWarn>Uno0001</NoWarn>
-		<CodeSigningKey>Apple Distribution: nventive inc. (4PZ69335CF)</CodeSigningKey>
-		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
-		<AOTMode>None</AOTMode>
-	</PropertyGroup>
+    <CodeSigningKey>Apple Distribution: nventive inc. (4PZ69335CF)</CodeSigningKey>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+    <AOTMode>None</AOTMode>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,7 +73,7 @@
     <Reference Include="System.Memory" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Uno.UI" Version="2.3.0-dev.118" />
+    <PackageReference Include="Uno.UI" Version="2.4.0-dev.10" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json">
