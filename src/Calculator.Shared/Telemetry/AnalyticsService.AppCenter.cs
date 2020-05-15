@@ -1,4 +1,4 @@
-﻿#if __IOS__ || __ANDROID__ || NETFX_CORE
+﻿#if __IOS__ || __ANDROID__ || __MACOS__ || NETFX_CORE
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +14,8 @@ namespace CalculatorApp.Telemetry
 		{
 #if __IOS__
 			var id = "adc1f082-0f58-4bc6-8eb0-b318bc89079b";
+#elif __MACOS__
+			var id = "2a4e2da4-ebf6-44d9-a84f-f82eaa0ba130";
 #elif __ANDROID__
 			var id = "c1ba47a3-9fb5-4365-af27-6eed6e0ca4bf";
 #elif NETFX_CORE
