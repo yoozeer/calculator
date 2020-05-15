@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>Uno Calc</string>
+	<string>Uno Calculator</string>
 	<key>CFBundleDisplayName</key>
 	<string>Uno Calculator</string>
 	<key>CFBundleIdentifier</key>
