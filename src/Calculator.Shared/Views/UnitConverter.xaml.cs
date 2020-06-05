@@ -281,12 +281,7 @@ namespace CalculatorApp
 			{
 				if (_animationStory == null)
 				{
-#if NETFX_CORE
 					_animationStory = (Storyboard)Resources[nameof(AnimationStory)];
-#else
-					_animationStory = StaticResources.AnimationStory;
-#endif
-
 
 					foreach (var animation in _animationStory.Children)
 					{
@@ -372,12 +367,7 @@ namespace CalculatorApp
 			{
 				if (_timestampFadeInAnimation == null)
 				{
-#if NETFX_CORE
 					_timestampFadeInAnimation = (Storyboard)Resources[nameof(TimestampFadeInAnimation)];
-#else
-					_timestampFadeInAnimation = StaticResources.TimestampFadeInAnimation;
-#endif
-
 
 					foreach (var animation in _timestampFadeInAnimation.Children)
 					{

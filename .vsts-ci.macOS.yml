@@ -66,7 +66,7 @@ jobs:
     displayName: 'Install Apple Provisioning Profile'
     inputs:
       provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: Uno_Calculator_macOS.provisionprofile # Located in the Library's secure files
+      provProfileSecureFile: Uno_Calculator_macOS.mobileprovision # Located in the Library's secure files
 
   - task: NuGetToolInstaller@0
     inputs:
