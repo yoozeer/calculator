@@ -53,6 +53,11 @@ namespace CalculatorApp
 #endif
 		}
 
+#if __MACOS__
+		public override bool ApplicationShouldTerminateAfterLastWindowClosed(AppKit.NSApplication sender)
+			=> true;
+#endif
+
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
 		/// will be used such as when the application is launched to open a specific file.

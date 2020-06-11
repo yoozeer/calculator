@@ -53,7 +53,7 @@
 				Margin="12,0,12,18"
 				Content="Try Uno Platform"
 				FontSize="12"
-				Foreground="Black"
+				Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
 				NavigateUri="https://platform.uno/docs/articles/getting-started-tutorial-1.html"/>
 
 			<!--

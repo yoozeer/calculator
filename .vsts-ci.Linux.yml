@@ -1,30 +1,80 @@
 jobs:
 - job: linux
-  container: nv-bionic-wasm
+  container: unoplatform/wasm-build:2.0
 
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
 
   variables:
     NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
+    VersionCodeOffset: 400559 # last value for the APK release
+    DotnetRuntimePath: /usr/share/dotnet
 
   steps:
   - checkout: self
     clean: true
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 2.2.x'
+    inputs:
+      packageType: runtime
+      version: 2.2.x
+      installationPath: '$(DotnetRuntimePath)'
+
+  - task: nventiveCanaryUpdater@5
+    displayName: 'Canary Update'
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
+    inputs:
+      solution: src/Calculator.sln
+      branchToMerge: uno
+      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
+      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
+      nugetUpdaterVersion: 2.0.6
+      packageAuthor: nventive
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 2.1.0'
+    inputs:
+      packageType: runtime
+      version: 2.1.0
+      installationPath: '$(DotnetRuntimePath)'
+
+  - task: GitVersion@5
+    inputs:
+      useConfigFile: true
+      configFilePath: gitversion.yml
   
   - bash: |
-      cd /emsdk
-      sudo ./emsdk activate sdk-1.38.31-64bit
-      sudo chmod -R 777 /emsdk
+      cd ~
+      git clone https://github.com/emscripten-core/emsdk
+      cd emsdk
+      ./emsdk install sdk-1.39.11
+      ./emsdk activate sdk-1.39.11
 
     displayName: 'Setup Emscripten'
 
-  - task: GitVersion@4
+  - bash: |
+      cd ~/emsdk
+      wget https://raw.githubusercontent.com/mono/mono/27247739c68faee7b2a63ae805222d4b375d2161/sdks/builds/fix-emscripten-8511.diff
+      cd ~/emsdk/upstream/emscripten
+      patch -N -p1 < ~/emsdk/fix-emscripten-8511.diff
+
+    displayName: 'Apply Emscripten Mono patches'
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
     inputs:
-      updateAssemblyInfo: false
+      packageType: sdk
+      version: 3.1.x
+      installationPath: '$(DotnetRuntimePath)'
+
+  - task: GitVersion@5
+    inputs:
+      useConfigFile: true
+      configFilePath: gitversion.yml
 
   - script: |
-      source /emsdk/emsdk_env.sh
+      source ~/emsdk/emsdk_env.sh
       cd src/CalcManager
       chmod +x build.sh
       ./build.sh
@@ -35,10 +85,10 @@ jobs:
       GITVERSION_FullSemVer: $(GITVERSION_FullSemVer)
 
   - script: |
-      source /emsdk/emsdk_env.sh
+      source ~/emsdk/emsdk_env.sh
       cd $(build.sourcesdirectory)
       msbuild /r /p:BuildPlatformTarget=Wasm $(build.sourcesdirectory)/src/build/build.csproj
-      msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/src/Calculator.Wasm/Calculator.Wasm.csproj
+      msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/src/Calculator.Wasm/Calculator.Wasm.csproj  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
 
     env:
       GITVERSION_FullSemVer: $(GITVERSION_FullSemVer)

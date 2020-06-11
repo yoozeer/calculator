@@ -1,6 +1,6 @@
 # Uno Calculator
 
-The Uno Calculator is a port of the [Windows Calculator](https://github.com/microsoft/calculator) to C# and to the [Uno Platform](https://platform.uno) for iOS, Android and WebAssembly.
+The Uno Calculator is a port of the [Windows Calculator](https://github.com/microsoft/calculator) to C# and to the [Uno Platform](https://platform.uno) for iOS, macOS, Android and WebAssembly.
 
 The app provides standard, scientific, and programmer calculator functionality, as well as a set of converters between various units of measurement and currencies.
 
@@ -36,7 +36,7 @@ Prerequisites:
 
 - Get the code:
     ```
-    git clone https://github.com/nventive/calculator
+    git clone https://github.com/unoplatform/calculator
     ```
 
 - Open [src\Calculator.sln](/src/Calculator.sln) in Visual Studio to build and run the Calculator app.

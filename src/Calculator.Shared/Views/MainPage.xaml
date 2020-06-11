@@ -65,7 +65,7 @@
 	</Page.Resources>
 
 	<Grid toolkit:VisibleBoundsPadding.PaddingMask="All"
-		  xamarin:Background="{StaticResource XamarinBackgroundBrush}">
+		  xamarin:Background="{ThemeResource AppChromeAcrylicHostBackdropMediumLowBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />

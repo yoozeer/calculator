@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="CalculatorApp.HistoryList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:ios="http://uno.ui/ios"
              xmlns:xamarin="http://platform.uno/xamarin"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:automation="using:CalculatorApp.Common.Automation"
@@ -13,7 +14,7 @@
              xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
              AutomationProperties.AutomationId="HistoryList"
              FlowDirection="LeftToRight"
-             mc:Ignorable="d xamarin">
+             mc:Ignorable="d xamarin ios">
 	
              <!-- UNO TODO x:Name="HistoryList"-->
 
@@ -98,7 +99,8 @@
 			<Style x:Key="HistoryItemContainerStyle"
                    BasedOn="{StaticResource HistoryMemoryItemContainerStyle}"
                    TargetType="ListViewItem">
-				<Setter Property="Margin" Value="0,0,0,20"/>
+				<Setter Property="Margin"
+						Value="0,0,0,20" />
 			</Style>
 			<DataTemplate x:Key="HistoryItemTemplate" x:DataType="model:HistoryItemViewModel">
 				<StackPanel Margin="0,6,4,6"
