@@ -42,7 +42,7 @@ Prerequisites:
 - Open [src\Calculator.sln](/src/Calculator.sln) in Visual Studio to build and run the Calculator app.
 
 ## Contributing
-We ❤contributions. The team encourages community feedback and contributions. Please follow our [contributing guidelines](CONTRIBUTING.md).
+We ❤ contributions. The team encourages community feedback and contributions. Please follow our [contributing guidelines](CONTRIBUTING.md).
 
 If Calculator is not working properly, please [file an issue](https://github.com/nventive/calculator/issues).
 
