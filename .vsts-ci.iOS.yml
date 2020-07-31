@@ -14,6 +14,9 @@ jobs:
       value: 400559 # last value for the APK release
     - group: apple.appstore.distribution
 
+  workspace:
+     clean: all
+
   steps:
   - task: UseDotNet@2
     displayName: 'Use .Net Core runtime 2.2.0'
@@ -66,16 +69,6 @@ jobs:
     displayName: 'Install an Apple provisioning profile'
     inputs:
       provProfileSecureFile: 'Uno_Calculator.mobileprovision'
-
-  - task: NuGetToolInstaller@0
-    inputs:
-      versionSpec: 4.9.1
-      checkLatest: false
-
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '$(build.sourcesdirectory)/src/Calculator.iOS/Calculator.iOS.csproj'
 
   - bash: |
       cd $(build.sourcesdirectory)/src/CalcManager
