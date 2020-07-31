@@ -51,10 +51,10 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-		<PackageReference Include="Uno.UI.WebAssembly" Version="3.0.0-dev.899" />
+		<PackageReference Include="Uno.UI.WebAssembly" Version="3.0.0-dev.1253" />
 		<PackageReference Include="Uno.UI.Sample.Banner" Version="1.44.0-dev.33" />
-		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.4.0-dev.9" />
-		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.4.0-dev.9" />
+		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.4.0-dev.16" />
+		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.4.0-dev.16" />
 	</ItemGroup>
 	<ItemGroup>
 		<MonoRuntimeMixedModeExcludedAssembly Include="Newtonsoft.Json" />
