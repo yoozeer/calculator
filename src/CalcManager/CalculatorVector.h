@@ -10,7 +10,7 @@
 #include "Ratpack/CalcErr.h"
 #include <stdexcept> // for std::out_of_range
 
-#if !defined(__EMSCRIPTEN__) && !defined(__APPLE__) && !defined(__ANDROID__)
+#if !defined(__EMSCRIPTEN__) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__LINUX__)
 #include <winerror.h>
 #include <sal.h>     // for SAL
 #endif

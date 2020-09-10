@@ -379,27 +379,27 @@ namespace CalculatorApp
 
         void OnNavLoaded(object sender, RoutedEventArgs e)
         {
-            if (NavView.SelectedItem == null)
-            {
-                var menuItems = (IEnumerable<object>)(NavView.MenuItemsSource);
-                var itemCount = (int)(menuItems.Count());
-                var flatIndex = NavCategory.GetFlatIndex(Model.Mode);
+			if (NavView.SelectedItem == null)
+			{
+				var menuItems = (IEnumerable<object>)(NavView.MenuItemsSource);
+				var itemCount = (int)(menuItems.Count());
+				var flatIndex = NavCategory.GetFlatIndex(Model.Mode);
 
-                if (flatIndex >= 0 && flatIndex < itemCount)
-                {
-                    NavView.SelectedItem = menuItems.ElementAt(flatIndex);
-                }
-            }
+				if (flatIndex >= 0 && flatIndex < itemCount)
+				{
+					NavView.SelectedItem = menuItems.ElementAt(flatIndex);
+				}
+			}
 
-            // UNO TODO
-            //var acceleratorList = NavCategory.GetCategoryAcceleratorKeys();
-            // foreach (var accelerator in acceleratorList)
-            // {
-            //     NavView.SetValue(Common.KeyboardShortcutManager.VirtualKeyAltChordProperty, accelerator);
-            // }
-            // // Special case logic for Ctrl+E accelerator for Date Calculation Mode
-            // NavView.SetValue(Common.KeyboardShortcutManager.VirtualKeyControlChordProperty, Common.MyVirtualKey.E);
-        }
+			// UNO TODO
+			//var acceleratorList = NavCategory.GetCategoryAcceleratorKeys();
+			// foreach (var accelerator in acceleratorList)
+			// {
+			//     NavView.SetValue(Common.KeyboardShortcutManager.VirtualKeyAltChordProperty, accelerator);
+			// }
+			// // Special case logic for Ctrl+E accelerator for Date Calculation Mode
+			// NavView.SetValue(Common.KeyboardShortcutManager.VirtualKeyControlChordProperty, Common.MyVirtualKey.E);
+		}
 
         void OnNavPaneOpening(NavigationView sender, object args)
         {
