@@ -41,7 +41,7 @@ struct CalculatorManager_CreateParams
     GetCEngineStringFunc GetCEngineString;
 };
 
-#if defined(__EMSCRIPTEN__) || defined(__APPLE__) || defined(__ANDROID__)
+#if defined(__EMSCRIPTEN__) || defined(__APPLE__) || defined(__ANDROID__) || defined(__LINUX__)
 #define DLL_EXPORT 
 #else
 #define DLL_EXPORT __declspec(dllexport)
@@ -112,6 +112,7 @@ extern "C"
     DLL_EXPORT void* CalculatorManager_GetHistoryItem(void* manager, int index);
 
     DLL_EXPORT void Free(void* ptr);
+    DLL_EXPORT int32_t GetWChar_t_Size();
 
     DLL_EXPORT int IExpressionCommand_GetCommandType(void* pExpressionCommand);
 

@@ -39,7 +39,7 @@ jobs:
   - task: UseDotNet@2
     displayName: 'Use .Net Core runtime 3.1.x'
     inputs:
-      packageType: runtime
+      packageType: sdk
       version: 3.1.x
 
   - task: NuGetToolInstaller@0
@@ -103,8 +103,28 @@ jobs:
       createLogFile: false
 
   - task: MSBuild@1
+    displayName: Build Win32 CalcManager
     inputs:
-      solution: src/Calculator.sln
+      solution: src/CalcManager.Win32\CalcManager.Win32.vcxproj
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: /p:Configuration=Release /p:Platform=x64
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: false
+      createLogFile: false
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 5.0.x'
+    inputs:
+      version: 5.0.x
+      includePreviewVersions: true
+
+  - task: MSBuild@1
+    inputs:
+      solution: src/Calculator.windows-ci-only.slnf
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
@@ -114,7 +134,17 @@ jobs:
       restoreNugetPackages: false
       logProjectEvents: false
       createLogFile: false
-      
+
+  - script: dotnet publish -c Release -r win10-x64 --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
+    displayName: 'Build Skia win10-x64'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive Skia win10-x64'
+    inputs:
+      rootFolderOrFile: '$(build.sourcesdirectory)\src\Calculator.Skia.Gtk\bin\Release\net5.0\win10-x64\publish'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/skia/Calculator-win10-x64.zip' 
+      includeRootFolder: false
+
   - task: CopyFiles@2
     displayName: 'Publish Wasm Binaries'
     inputs:

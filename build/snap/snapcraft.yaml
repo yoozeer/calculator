@@ -1,0 +1,33 @@
+name: uno-calculator
+base: core18
+version: '0.1' 
+summary: The Uno Calculator
+description: |
+  The powerful Uno Calculator receives a makeover from Uno Platform with a wide variety of features.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: arnhf
+
+parts:
+  uno-calculator:
+    plugin: dump
+    source: 
+      - on amd64: Calculator/skia/Calculator-linux-x64.zip
+      - on arm64: Calculator/skia/Calculator-linux-arm64.zip
+      - on armhf: Calculator/skia/Calculator-linux-arm.zip
+    override-build: |
+      snapcraftctl build
+      chmod +x Calculator.Skia.Gtk
+
+apps:
+  uno-calculator:
+    extensions: [gnome-3-28]
+    command: Calculator.Skia.Gtk
+    plugs:
+      - mount-observe
+      - process-control

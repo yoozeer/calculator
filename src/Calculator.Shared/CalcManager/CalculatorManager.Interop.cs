@@ -106,6 +106,9 @@ namespace CalculationManager
 		public static extern void Free(IntPtr ptr);
 
 		[DllImport(DllPath)]
+		public static extern int GetWChar_t_Size();
+
+		[DllImport(DllPath)]
 		public static extern CommandType IExpressionCommand_GetCommandType(IntPtr pExpressionCommand);
 
 		[DllImport(DllPath)]
@@ -303,25 +306,14 @@ namespace CalculationManager
 
 			return pEngineString;
 		}
+		private static bool IsStringUTF32 =>
+			GetWChar_t_Size() == 4;
 
 		internal static IntPtr StringToHGlobal(string resourceValue)
-		{
-#if __WASM__ || __IOS__ || __ANDROID__ || __MACOS__
-			// wchar_t is 32bits
-			return StringToHGlobalUTF32(resourceValue);
-#else
-			return Marshal.StringToHGlobalUni(resourceValue);
-#endif
-		}
+			=> IsStringUTF32 ? StringToHGlobalUTF32(resourceValue) : Marshal.StringToHGlobalUni(resourceValue);
 
 		internal static string PtrToString(IntPtr pResourceId)
-		{
-#if __WASM__ || __IOS__ || __ANDROID__ || __MACOS__
-			return PtrToStringUTF32(pResourceId);
-#else
-			return Marshal.PtrToStringUni(pResourceId);
-#endif
-		}
+			=> IsStringUTF32 ? PtrToStringUTF32(pResourceId) : Marshal.PtrToStringUni(pResourceId);
 
 		private static string PtrToStringUTF32(IntPtr ptr)
 		{
@@ -333,7 +325,7 @@ namespace CalculationManager
 
 			if (endPtr != ptr)
 			{
-				var b = new byte[(int)endPtr - (int)ptr];
+				var b = new byte[(long)endPtr - (long)ptr];
 				Marshal.Copy(ptr, b, 0, b.Length);
 
 				return Encoding.UTF32.GetString(b);

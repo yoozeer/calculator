@@ -18,7 +18,7 @@
 #include <unordered_map>
 #include <vector>
 
-#if !defined(__EMSCRIPTEN__) && !defined(__APPLE__) && !defined(__ANDROID__)
+#if !defined(__EMSCRIPTEN__) && !defined(__APPLE__) && !defined(__ANDROID__) && !defined(__LINUX__)
 #include <ppltasks.h>
 #include <winerror.h>
 #include <intsafe.h>

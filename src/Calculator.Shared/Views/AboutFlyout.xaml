@@ -5,11 +5,11 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="">
 
-	<UserControl.Transitions>
+	<!--<UserControl.Transitions>
 		<TransitionCollection>
 			<EdgeUIThemeTransition Edge="Left" />
 		</TransitionCollection>
-	</UserControl.Transitions>
+	</UserControl.Transitions>-->
 	<Grid Width="250">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />

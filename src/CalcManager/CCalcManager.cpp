@@ -42,7 +42,7 @@ VOID _DBGPRINT(LPCWSTR kwszFunction, INT iLineNumber, LPCWSTR kwszDebugFormatStr
     _freea(wszDebugString);
     va_end(args);
 }
-#elif defined(__EMSCRIPTEN__)
+#elif defined(__EMSCRIPTEN__) || defined(__LINUX__)
 #define DBGPRINT(kwszDebugFormatString, ...) printf(kwszDebugFormatString, ##__VA_ARGS__);
 #endif
 #else
@@ -172,7 +172,7 @@ public:
     {
         auto pResult = _params.GetCEngineString(_params.ResourceState, id.data());
         auto str = std::wstring(pResult);
-        DBGPRINT("Native:GetCEngineString(id=%ls, str.data()=%ls)\n", id.data(), str.data());
+        DBGPRINT("Native:GetCEngineString(id=%ls, str.data()=%ls, sizeof(%d))\n", id.data(), str.data(), sizeof(wchar_t));
         return str;
     }
 };
@@ -443,6 +443,11 @@ void* CalculatorManager_GetHistoryItem(void* manager, int index)
 void Free(void* ptr)
 {
     free(ptr);
+}
+
+int32_t GetWChar_t_Size()
+{
+    return sizeof(wchar_t);
 }
 
 int IExpressionCommand_GetCommandType(void* pExpressionCommand)

@@ -29,10 +29,10 @@ namespace CalculatorApp.Controls
 		Button m_scrollLeft;
 		Button m_scrollRight;
 
-		EventRegistrationToken m_scrollLeftClickEventToken;
-		EventRegistrationToken m_scrollRightClickEventToken;
-		EventRegistrationToken m_pointerEnteredEventToken;
-		EventRegistrationToken m_pointerExitedEventToken;
+		// EventRegistrationToken m_scrollLeftClickEventToken;
+		// EventRegistrationToken m_scrollRightClickEventToken;
+		// EventRegistrationToken m_pointerEnteredEventToken;
+		// EventRegistrationToken m_pointerExitedEventToken;
 		private ItemsControl m_itemsControl;
 		private bool m_isAccessibilityViewControl;
 
