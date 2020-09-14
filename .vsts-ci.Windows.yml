@@ -117,9 +117,9 @@ jobs:
       createLogFile: false
 
   - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 5.0.x'
+    displayName: 'Use .Net Core runtime 5.0.100-rc.1.20452.10'
     inputs:
-      version: 5.0.x
+      version: 5.0.100-rc.1.20452.10
       includePreviewVersions: true
 
   - task: MSBuild@1
