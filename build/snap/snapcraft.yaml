@@ -13,7 +13,7 @@ adopt-info: uno-calculator
 architectures:
   - build-on: amd64
   - build-on: arm64
-  - build-on: arnhf
+  - build-on: armhf
 
 parts:
   uno-calculator:

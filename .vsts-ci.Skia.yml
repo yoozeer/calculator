@@ -279,7 +279,6 @@ jobs:
         brew install snapcraft
         brew cask install multipass
         cd $(build.sourcesdirectory)/build
-        ls -Rl .
         snapcraft
         
   - task: CopyFiles@2
