@@ -118,8 +118,13 @@ jobs:
       logProjectEvents: false
       createLogFile: false
 
-  - script: dotnet publish -c Release -r linux-x64 --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
+  - script: |
+      dotnet publish -c Release -r linux-x64 --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
+      echo "$GITVERSION_FullSemVer" > $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-x64/publish/VERSION
+
     displayName: 'Build Skia linux-x64'
+    env:
+      GITVERSION_FullSemVer: $(GITVERSION.FullSemVer)
 
   - script: mkdir -p $(Build.ArtifactStagingDirectory)/skia
     displayName: 'Create artifacts folder'
@@ -127,7 +132,7 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'Archive Skia linux-x64'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-x64/publish'
+      rootFolderOrFile: '$(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-x64/publish/'
       archiveFile: '$(Build.ArtifactStagingDirectory)/skia/Calculator-linux-x64.zip' 
       includeRootFolder: false
 
@@ -217,11 +222,21 @@ jobs:
       logProjectEvents: false
       createLogFile: false
 
-  - script: dotnet publish -c Release -r linux-arm --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
-    displayName: 'Build Skia linux-arm'
+  - script: |
+        dotnet publish -c Release -r linux-arm --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
+        echo "$GITVERSION_FullSemVer" > $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-arm/publish/VERSION
 
-  - script: dotnet publish -c Release -r linux-arm64 --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
+    displayName: 'Build Skia linux-arm'
+    env:
+      GITVERSION_FullSemVer: $(GITVERSION.FullSemVer)
+
+  - script: |
+        dotnet publish -c Release -r linux-arm64 --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
+        echo "$GITVERSION_FullSemVer" > $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-arm64/publish/VERSION
+
     displayName: 'Build Skia linux-arm64'
+    env:
+      GITVERSION_FullSemVer: $(GITVERSION.FullSemVer)
 
   - script: mkdir -p $(Build.ArtifactStagingDirectory)/skia
     displayName: 'Create artifacts folder'
@@ -229,14 +244,14 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'Archive Skia linux-arm'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-arm/publish'
+      rootFolderOrFile: '$(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-arm/publish/'
       archiveFile: '$(Build.ArtifactStagingDirectory)/skia/Calculator-linux-arm.zip' 
       includeRootFolder: false
 
   - task: ArchiveFiles@2
     displayName: 'Archive Skia linux-arm64'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-arm64/publish'
+      rootFolderOrFile: '$(build.sourcesdirectory)/src/Calculator.Skia.Gtk/bin/Release/net5.0/linux-arm64/publish/'
       archiveFile: '$(Build.ArtifactStagingDirectory)/skia/Calculator-linux-arm64.zip' 
       includeRootFolder: false
 
@@ -247,38 +262,38 @@ jobs:
       artifactType: container
       artifactName: Calculator
 
-#- job: macOS_Snap
-#  dependsOn:
-#    - Linux_Skia_x86
-#    - Linux_Skia_ARM
-#  pool:
-#    vmImage: 'macOS-10.15'
-#
-#  steps:
-#  - task: DownloadBuildArtifacts@0
-#    inputs:
-#      artifactName: Calculator
-#      downloadPath: '$(build.sourcesdirectory)/src/build/snap' 
-#
-#  - script: |
-#        brew install snapcraft
-#        brew cask install multipass
-#        cd $(build.sourcesdirectory)/build
-#        snapcraft
-#        
-#  - task: CopyFiles@2
-#    displayName: 'Publish Snap'
-#    inputs:
-#      SourceFolder: $(build.sourcesdirectory)/build
-#      Contents: '**/*.snap'
-#      TargetFolder: $(build.artifactstagingdirectory)/skia
-#      CleanTargetFolder: false
-#      OverWrite: false
-#      flattenFolders: false
-#
-#  - task: PublishBuildArtifacts@1
-#    displayName: Publish Package Artifacts
-#    inputs:
-#      pathToPublish: $(build.artifactstagingdirectory)
-#      artifactType: container
-#      artifactName: Calculator
+- job: macOS_Snap
+  dependsOn:
+    - Linux_Skia_x86
+    - Linux_Skia_ARM
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      artifactName: Calculator
+      downloadPath: '$(build.sourcesdirectory)/build'
+
+  - script: |
+        brew install snapcraft
+        brew cask install multipass
+        cd $(build.sourcesdirectory)/build
+        snapcraft
+        
+  - task: CopyFiles@2
+    displayName: 'Publish Snap'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/build
+      Contents: '**/*.snap'
+      TargetFolder: $(build.artifactstagingdirectory)/skia
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Package Artifacts
+    inputs:
+      pathToPublish: $(build.artifactstagingdirectory)
+      artifactType: container
+      artifactName: Calculator
