@@ -1,6 +1,6 @@
 jobs:
 - job: Linux_WebAssembly
-  container: unoplatform/wasm-build:2.0
+  container: unoplatform/wasm-build:3.0
 
   pool:
     vmImage: 'ubuntu-18.04'
@@ -30,7 +30,7 @@ jobs:
       branchToMerge: uno
       summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
       resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
-      nugetUpdaterVersion: 2.0.6
+      nugetUpdaterVersion: 2.1.1
       packageAuthor: nventive
 
   - task: UseDotNet@2
@@ -44,23 +44,6 @@ jobs:
     inputs:
       useConfigFile: true
       configFilePath: gitversion.yml
-  
-  - bash: |
-      cd ~
-      git clone --branch $(EMSDK_VERSION) https://github.com/emscripten-core/emsdk
-      cd emsdk
-      ./emsdk install $(EMSDK_VERSION)
-      ./emsdk activate $(EMSDK_VERSION)
-
-    displayName: 'Setup Emscripten'
-
-  - bash: |
-      cd ~/emsdk
-      wget https://raw.githubusercontent.com/mono/mono/27247739c68faee7b2a63ae805222d4b375d2161/sdks/builds/fix-emscripten-8511.diff
-      cd ~/emsdk/upstream/emscripten
-      patch -N -p1 < ~/emsdk/fix-emscripten-8511.diff
-
-    displayName: 'Apply Emscripten Mono patches'
 
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'

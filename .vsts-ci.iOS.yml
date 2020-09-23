@@ -32,7 +32,7 @@ jobs:
       branchToMerge: uno
       summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
       resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
-      nugetUpdaterVersion: 2.0.2
+      nugetUpdaterVersion: 2.1.1
       packageAuthor: nventive
   
   #- bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_18_1"
