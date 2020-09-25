@@ -3,12 +3,11 @@ jobs:
   container: unoplatform/wasm-build:3.0
 
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
 
   variables:
     NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
     VersionCodeOffset: 400559 # last value for the APK release
-    DotnetRuntimePath: /usr/share/dotnet
     EMSDK_VERSION: 1.39.18
 
   steps:
@@ -38,7 +37,6 @@ jobs:
     inputs:
       packageType: runtime
       version: 2.1.0
-      installationPath: '$(DotnetRuntimePath)'
 
   - task: GitVersion@5
     inputs:
@@ -50,7 +48,6 @@ jobs:
     inputs:
       packageType: sdk
       version: 3.1.201
-      installationPath: '$(DotnetRuntimePath)'
 
   - task: GitVersion@5
     inputs:
