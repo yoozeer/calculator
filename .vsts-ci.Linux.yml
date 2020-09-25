@@ -1,49 +1,27 @@
 jobs:
 - job: Linux_WebAssembly
-  container: unoplatform/wasm-build:2.0
+  container: unoplatform/wasm-build:3.0
 
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
 
   variables:
     NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
     VersionCodeOffset: 400559 # last value for the APK release
-    DotnetRuntimePath: /usr/share/dotnet
-    EMSDK_VERSION: 1.39.18
+    EMSDK_VERSION: 1.40.0
 
   steps:
   - checkout: self
     clean: true
 
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 2.2.x'
-    inputs:
-      packageType: runtime
-      version: 2.2.x
-      installationPath: '$(DotnetRuntimePath)'
-
-  - task: nventiveCanaryUpdater@5
-    displayName: 'Canary Update'
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
-    inputs:
-      solution: src/Calculator.sln
-      branchToMerge: uno
-      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
-      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
-      nugetUpdaterVersion: 2.0.6
-      packageAuthor: nventive
+  - template: build/uno-ci/canary-updater.yml
+  - template: build/uno-ci/gitversion.yml
 
   - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 2.1.0'
+    displayName: 'Use .NET Core sdk'
     inputs:
-      packageType: runtime
-      version: 2.1.0
-      installationPath: '$(DotnetRuntimePath)'
-
-  - task: GitVersion@5
-    inputs:
-      useConfigFile: true
-      configFilePath: gitversion.yml
+      packageType: sdk
+      version: 3.1.201
   
   - bash: |
       cd ~
@@ -53,26 +31,6 @@ jobs:
       ./emsdk activate $(EMSDK_VERSION)
 
     displayName: 'Setup Emscripten'
-
-  - bash: |
-      cd ~/emsdk
-      wget https://raw.githubusercontent.com/mono/mono/27247739c68faee7b2a63ae805222d4b375d2161/sdks/builds/fix-emscripten-8511.diff
-      cd ~/emsdk/upstream/emscripten
-      patch -N -p1 < ~/emsdk/fix-emscripten-8511.diff
-
-    displayName: 'Apply Emscripten Mono patches'
-
-  - task: UseDotNet@2
-    displayName: 'Use .NET Core sdk'
-    inputs:
-      packageType: sdk
-      version: 3.1.201
-      installationPath: '$(DotnetRuntimePath)'
-
-  - task: GitVersion@5
-    inputs:
-      useConfigFile: true
-      configFilePath: gitversion.yml
 
   - script: |
       source ~/emsdk/emsdk_env.sh
