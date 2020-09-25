@@ -16,33 +16,9 @@ jobs:
      clean: all
 
   steps:
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 2.2.0'
-    inputs:
-      packageType: runtime
-      version: 2.2.0
 
-  - task: nventiveCanaryUpdater@5
-    displayName: 'Canary Update'
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
-    inputs:
-      solution: src/Calculator.sln
-      branchToMerge: uno
-      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
-      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
-      nugetUpdaterVersion: 2.1.1
-      packageAuthor: nventive
-
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 2.1.0'
-    inputs:
-      packageType: runtime
-      version: 2.1.0
-
-  - task: UseGitVersion@5
-    inputs:
-      versionSpec: '5.x'
-      configFilePath: gitversion.yml
+  - template: build/uno-ci/canary-updater.yml
+  - template: build/uno-ci/gitversion.yml
 
   - task: UseDotNet@2
     displayName: 'Use .Net Core runtime 3.1.6'
