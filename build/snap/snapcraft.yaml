@@ -6,6 +6,7 @@ description: |
 
 grade: stable
 confinement: strict
+icon: SnapStoreLogo.scale-400.png
 
 # Ensures that the version specified by the part is used for the snap
 adopt-info: uno-calculator
