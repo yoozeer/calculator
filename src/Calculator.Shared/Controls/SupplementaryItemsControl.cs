@@ -21,7 +21,7 @@ namespace CalculatorApp.Controls
         }
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, Object item)
-		{
+		{ 
             base.PrepareContainerForItemOverride(element, item);
 
 			var supplementaryResult = (SupplementaryResult)(item);
