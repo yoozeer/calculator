@@ -19,6 +19,11 @@ architectures:
 parts:
   uno-calculator:
     plugin: dump
+    stage-packages:
+      - libfontconfig1
+      - libfreetype6
+      - libpng16-16
+
     source: 
       - on amd64: Calculator/skia/Calculator-linux-x64.zip
       - on arm64: Calculator/skia/Calculator-linux-arm64.zip

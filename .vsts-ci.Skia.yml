@@ -244,7 +244,6 @@ jobs:
 - job: macOS_Snap
   dependsOn:
     - Linux_Skia_x86
-    - Linux_Skia_ARM
   pool:
     vmImage: 'macOS-10.15'
 
@@ -276,3 +275,72 @@ jobs:
       pathToPublish: $(build.artifactstagingdirectory)
       artifactType: container
       artifactName: Calculator
+
+- job: ARM64_Snap
+  dependsOn:
+    - Linux_Skia_ARM
+
+  container: unoplatform/snapcraft:20201014-arm64
+  pool: 'Linux-Arm64-20.04'
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      artifactName: Calculator
+      downloadPath: '$(build.sourcesdirectory)/build'
+
+  - script: |
+        cd $(build.sourcesdirectory)/build
+        snapcraft
+        
+  - task: CopyFiles@2
+    displayName: 'Publish Snap'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/build
+      Contents: '**/*.snap'
+      TargetFolder: $(build.artifactstagingdirectory)/skia
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Package Artifacts
+    inputs:
+      pathToPublish: $(build.artifactstagingdirectory)
+      artifactType: container
+      artifactName: Calculator
+
+# armhf is not supported by azuredevops
+# - job: ARMHF_Snap
+#   dependsOn:
+#     - Linux_Skia_ARM
+# 
+#   container: unoplatform/snapcraft:20201014-armhf
+#   pool: 'Linux-Arm64-20.04'
+# 
+#   steps:
+#   - task: DownloadBuildArtifacts@0
+#     inputs:
+#       artifactName: Calculator
+#       downloadPath: '$(build.sourcesdirectory)/build'
+# 
+#   - script: |
+#         cd $(build.sourcesdirectory)/build
+#         snapcraft
+#         
+#   - task: CopyFiles@2
+#     displayName: 'Publish Snap'
+#     inputs:
+#       SourceFolder: $(build.sourcesdirectory)/build
+#       Contents: '**/*.snap'
+#       TargetFolder: $(build.artifactstagingdirectory)/skia
+#       CleanTargetFolder: false
+#       OverWrite: false
+#       flattenFolders: false
+# 
+#   - task: PublishBuildArtifacts@1
+#     displayName: Publish Package Artifacts
+#     inputs:
+#       pathToPublish: $(build.artifactstagingdirectory)
+#       artifactType: container
+#       artifactName: Calculator
