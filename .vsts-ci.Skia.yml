@@ -79,9 +79,9 @@ jobs:
   - template: build/uno-ci/gitversion.yml
 
   - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 5.0.100-rc.1.20452.10'
+    displayName: 'Use .Net Core runtime 5.0.100-rc.2.20479.15'
     inputs:
-      version: 5.0.100-rc.1.20452.10
+      version: 5.0.100-rc.2.20479.15
       includePreviewVersions: true
 
   - task: MSBuild@1
@@ -172,9 +172,9 @@ jobs:
     displayName: Use GitVersion
 
   - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 5.0.100-rc.1.20452.10'
+    displayName: 'Use .Net Core runtime 5.0.100-rc.2.20479.15'
     inputs:
-      version: 5.0.100-rc.1.20452.10
+      version: 5.0.100-rc.2.20479.15
       includePreviewVersions: true
 
   - task: DownloadBuildArtifacts@0
