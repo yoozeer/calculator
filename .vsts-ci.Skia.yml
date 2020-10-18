@@ -357,6 +357,23 @@ jobs:
     options: "--name ci-container -v /usr/bin/docker:/tmp/docker:ro"
 
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 3.1.x'
+    inputs:
+      packageType: sdk
+      version: '3.1.x'
+
+  - task: gitversion/setup@0
+    inputs:
+      versionSpec: '5.x'
+
+  - task: gitversion/execute@0
+    inputs:
+      updateAssemblyInfo: 'False'
+      useConfigFile: true
+      configFilePath: gitversion.yml
+    displayName: Use GitVersion
+
   - task: DownloadBuildArtifacts@0
     inputs:
       artifactName: Calculator
@@ -377,6 +394,9 @@ jobs:
         cp AppDir/usr/bin/uno-calculator/Assets/StoreLogo.png AppDir/usr/share/icons/50x50/
         appimage-builder --recipe AppImageBuilder.x64.yaml --skip-test
         cp *.AppImage $(build.artifactstagingdirectory)
+
+    env:
+      GITVERSION_FullSemVer: $(GitVersion.FullSemVer)
 
   - task: PublishBuildArtifacts@1
     displayName: Publish Package Artifacts

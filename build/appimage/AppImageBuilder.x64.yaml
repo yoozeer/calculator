@@ -5,7 +5,7 @@ AppDir:
     id: uno.platform.calculator
     name: uno-calculator
     icon: 'StoreLogo'
-    version: latest
+    version: !ENV ${GITVERSION_FullSemVer}
     exec: usr/bin/uno-calculator/Calculator.Skia.Gtk
     exec_args: $@
   runtime:
@@ -73,7 +73,9 @@ AppDir:
       image: appimagecrafters/tests-env:ubuntu-xenial
       command: ./AppRun
       use_host_x: true
+
 AppImage:
   arch: x86_64
+  file_name: !ENV uno-calculator-${GITVERSION_FullSemVer}-x86_64.AppImage
   update-information: None
   sign-key: None
