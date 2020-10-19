@@ -344,3 +344,63 @@ jobs:
 #       pathToPublish: $(build.artifactstagingdirectory)
 #       artifactType: container
 #       artifactName: Calculator
+
+- job: x64_AppImage
+  dependsOn:
+    - Linux_Skia_x86
+    
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  container:
+    image: appimagecrafters/appimage-builder:0.7.2
+    options: "--name ci-container -v /usr/bin/docker:/tmp/docker:ro"
+
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 3.1.x'
+    inputs:
+      packageType: sdk
+      version: '3.1.x'
+
+  - task: gitversion/setup@0
+    inputs:
+      versionSpec: '5.x'
+
+  - task: gitversion/execute@0
+    inputs:
+      updateAssemblyInfo: 'False'
+      useConfigFile: true
+      configFilePath: gitversion.yml
+    displayName: Use GitVersion
+
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      artifactName: Calculator
+      downloadPath: '$(build.sourcesdirectory)/build'
+
+  - script: |
+      /tmp/docker exec -t -u 0 ci-container \
+      sh -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" -y install sudo"
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
+      sudo apt -y install zip
+    displayName: 'Setup dependencies'
+
+  - script: |
+        cd $(build.sourcesdirectory)/build/appimage
+        mkdir -p AppDir/usr/bin/uno-calculator
+        unzip $(build.sourcesdirectory)/build/Calculator/skia/Calculator-linux-x64.zip -d AppDir/usr/bin/uno-calculator
+        mkdir -p AppDir/usr/share/icons/50x50
+        cp AppDir/usr/bin/uno-calculator/Assets/StoreLogo.png AppDir/usr/share/icons/50x50/
+        appimage-builder --recipe AppImageBuilder.x64.yaml --skip-test
+        cp *.AppImage $(build.artifactstagingdirectory)
+
+    env:
+      GITVERSION_FullSemVer: $(GitVersion.FullSemVer)
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Package Artifacts
+    inputs:
+      pathToPublish: $(build.artifactstagingdirectory)
+      artifactType: container
+      artifactName: Calculator
