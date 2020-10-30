@@ -38,7 +38,7 @@ namespace CalculatorApp
 		{
 			Unit unit = value as Unit;
 
-			Debug.Assert(unit.GetModelUnit().isWhimsical);
+			Debug.Assert(unit?.GetModelUnit().isWhimsical ?? true);
 			if ((!unit?.GetModelUnit().isWhimsical) ?? true)
 			{
 				return null;
