@@ -4,7 +4,7 @@ The Uno Calculator is a port of the [Windows Calculator](https://github.com/micr
 
 The app provides standard, scientific, and programmer calculator functionality, as well as a set of converters between various units of measurement and currencies.
 
-The Uno Calculator will regularly follow with the Windows Calculator updates. You can get it from the [App Store](https://bit.ly/calc-ios), [Play Store](https://play.google.com/store/apps/details?id=uno.platform.calculator), [in your browser](https://calculator.platform.uno), [Snap Store for Linux](https://snapcraft.io/uno-calculator) and of course the original calculator on the [Microsoft Store](https://www.microsoft.com/store/apps/9WZDNCRFHVN5).
+The Uno Calculator will regularly follow with the Windows Calculator updates. You can get it from the [App Store](https://apps.apple.com/us/app/uno-calculator/id1464736591), [Play Store](https://play.google.com/store/apps/details?id=uno.platform.calculator), [in your browser](https://calculator.platform.uno), [Snap Store for Linux](https://snapcraft.io/uno-calculator) and of course the original calculator on the [Microsoft Store](https://www.microsoft.com/store/apps/9WZDNCRFHVN5).
 
 [![Build Status](https://uno-platform.visualstudio.com/Uno%20Platform/_apis/build/status/Uno%20Platform/Calculator%20CI?branchName=uno)](https://uno-platform.visualstudio.com/Uno%20Platform/_build?definitionId=55&_a=summary)
 
