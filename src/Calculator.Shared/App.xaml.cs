@@ -158,7 +158,7 @@ namespace CalculatorApp
 				)
 				.AddConsole(LogLevel.Trace);
 #else
-#if !__WASM__
+#if !__WASM__ && !HAS_UNO_SKIA
 			factory
 				.AddConsole(LogLevel.Error);
 #endif
