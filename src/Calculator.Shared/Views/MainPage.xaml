@@ -181,8 +181,9 @@
 											FlyoutPresenterStyle="{StaticResource AboutFlyoutPresenterStyle}"
 											Opened="OnAboutFlyoutOpened">
 
+										<!-- UNO TODO x:Load="False"-->
 										<local:AboutFlyout x:Name="AboutPage"
-														   x:Load="False" />
+														    />
 									</Flyout>
 								</FlyoutBase.AttachedFlyout>
 							</NavigationViewItem>
