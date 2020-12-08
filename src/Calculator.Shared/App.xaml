@@ -4,7 +4,7 @@
 			 xmlns:Controls="using:CalculatorApp.Controls"
 			 xmlns:common="using:CalculatorApp.Common"
 			 xmlns:converters="using:CalculatorApp.Converters"
-			 xmlns:local="using:CalculatorApp" RequestedTheme="Dark">
+			 xmlns:local="using:CalculatorApp">
 
 	<Application.Resources>
 		<ResourceDictionary>
