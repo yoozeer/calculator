@@ -1,4 +1,3 @@
 <linker>
   <assembly fullname="Calculator.Wasm" />
-  <assembly fullname="WebAssembly.Bindings" />
 </linker>
