@@ -8,7 +8,7 @@ jobs:
   variables:
     NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
     VersionCodeOffset: 400559 # last value for the APK release
-    EMSDK_VERSION: 1.40.0
+    EMSDK_VERSION: 2.0.11
 
   steps:
   - checkout: self
@@ -21,7 +21,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: sdk
-      version: 3.1.201
+      version: 5.0.102
   
   - bash: |
       cd ~
@@ -44,10 +44,9 @@ jobs:
       GITVERSION_FullSemVer: $(GITVERSION_FullSemVer)
 
   - script: |
-      source ~/emsdk/emsdk_env.sh
       cd $(build.sourcesdirectory)
-      msbuild /r /p:BuildPlatformTarget=Wasm $(build.sourcesdirectory)/src/build/build.csproj
-      msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/src/Calculator.Wasm/Calculator.Wasm.csproj  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
+      dotnet msbuild /r /p:BuildPlatformTarget=Wasm $(build.sourcesdirectory)/src/build/build.csproj
+      dotnet msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/src/Calculator.Wasm/Calculator.Wasm.csproj  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" /bl:$(build.artifactstagingdirectory)/linux.binlog 
 
     env:
       GITVERSION_FullSemVer: $(GITVERSION_FullSemVer)
@@ -56,7 +55,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Publish Wasm Binaries'
     inputs:
-      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Wasm/bin/Release/netstandard2.0/dist
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Wasm/bin/Release/net5.0/dist
       Contents: '**/*.*'
       TargetFolder: $(build.artifactstagingdirectory)/Uno-Calculator-wasm
       CleanTargetFolder: false
@@ -64,6 +63,7 @@ jobs:
       flattenFolders: false
 
   - task: PublishBuildArtifacts@1
+    condition: always()
     inputs:
       PathtoPublish: $(build.artifactstagingdirectory)
       ArtifactName: Uno-Calculator-wasm
