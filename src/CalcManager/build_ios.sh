@@ -19,7 +19,7 @@ libtool \
 
 rm *.o
 
-clang \
+xcrun -sdk iphonesimulator clang \
     -x c++ \
     -arch x86_64 \
     -std=c++1z \
