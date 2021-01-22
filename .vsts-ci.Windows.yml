@@ -93,12 +93,27 @@ jobs:
       createLogFile: false
 
   - task: MSBuild@1
+    displayName: 'Build Store Packages'
     inputs:
       solution: src/Calculator.windows-ci-only.slnf
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:SkipWasmBuild=true /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:SkipWasmBuild=true /p:BuildForPlayStore=true /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: false
+      createLogFile: false
+
+  - task: MSBuild@1
+    displayName: 'Build Android AppCenter package'
+    inputs:
+      solution: src/Calculator.Droid/Calculator.Droid.csproj
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:BuildForPlayStore=false /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword) "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false
@@ -129,7 +144,9 @@ jobs:
     displayName: 'Publish Android Binaries'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/src/Calculator.Droid/bin/Release
-      Contents: '**/*.aab'
+      Contents: |
+        **/*.aab
+        **/*.apk
       TargetFolder: $(build.artifactstagingdirectory)/android
       CleanTargetFolder: false
       OverWrite: false
