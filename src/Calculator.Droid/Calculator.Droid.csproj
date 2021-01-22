@@ -64,8 +64,9 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidPackageFormat>aab</AndroidPackageFormat>
-    <AndroidUseAapt2>true</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<AndroidPackageFormat Condition="'$(BuildForPlayStore)'=='true'">aab</AndroidPackageFormat>
+		<AndroidUseAapt2>true</AndroidUseAapt2>
     <MandroidI18n />
   </PropertyGroup>
   <ItemGroup>
