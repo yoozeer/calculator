@@ -259,7 +259,7 @@ jobs:
 
   - script: |
         brew install snapcraft
-        brew cask install multipass
+        brew install multipass --cask
         cd $(build.sourcesdirectory)/build
         snapcraft
         
