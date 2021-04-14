@@ -17,6 +17,9 @@
 		<WasmShellMonoRuntimeExecutionMode Condition="'$(UseAOT)'!=''">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
 		<WasmShellEnableEmccProfiling>true</WasmShellEnableEmccProfiling>
 		<!--<WasmShellGenerateAOTProfile>true</WasmShellGenerateAOTProfile>-->
+		
+		<!-- https://github.com/dotnet/runtime/issues/50508 -->
+		<WasmShellEnableAOTDeduplication>false</WasmShellEnableAOTDeduplication>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="..\Calculator.UWP\Assets\*.png" Link="Assets\%(FileName)%(Extension)" />
