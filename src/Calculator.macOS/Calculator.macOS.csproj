@@ -61,7 +61,7 @@
     </XamMacArch>
     <NoWarn>Uno0001</NoWarn>
     <CodeSigningKey>Apple Distribution: nventive inc. (4PZ69335CF)</CodeSigningKey>
-    <PackageSigningKey>iPhone Distribution: nventive inc. (4PZ69335CF)</PackageSigningKey>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
     <AOTMode>None</AOTMode>
   </PropertyGroup>
   <ItemGroup>
