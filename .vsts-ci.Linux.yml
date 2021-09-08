@@ -8,7 +8,7 @@ jobs:
   variables:
     NUGET_PACKAGES: $(build.sourcesdirectory)/.nuget
     VersionCodeOffset: 400559 # last value for the APK release
-    EMSDK_VERSION: 2.0.11
+    EMSDK_VERSION: 2.0.23 # Needs to be aligned with the current bootstrapper build
 
   steps:
   - checkout: self
