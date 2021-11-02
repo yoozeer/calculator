@@ -259,13 +259,12 @@ jobs:
 
   - script: |
         sudo snap install snapcraft --classic --channel stable
-        sudo snap install lxd
         sudo usermod --append --groups lxd $USER
-        export PATH=$PATH:/snap/bin
-        sudo chown root:root /
-        sudo /snap/bin/lxd.migrate -yes
-        sudo /snap/bin/lxd waitready
-        sudo /snap/bin/lxd init --auto
+        #export PATH=$PATH:/snap/bin
+        #sudo chown root:root /
+        #sudo /snap/bin/lxd.migrate -yes
+        #sudo /snap/bin/lxd waitready
+        #sudo /snap/bin/lxd init --auto
         # sudo snap install multipass
 
     displayName: 'Install Snapcraft'
