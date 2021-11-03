@@ -245,11 +245,11 @@ jobs:
       artifactType: container
       artifactName: Calculator
 
-- job: macOS_Snap
+- job: Linux_Snap
   dependsOn:
     - Linux_Skia_x86
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'ubuntu-latest'
 
   steps:
   - task: DownloadBuildArtifacts@0
@@ -258,11 +258,22 @@ jobs:
       downloadPath: '$(build.sourcesdirectory)/build'
 
   - script: |
-        brew install snapcraft
-        brew install multipass --cask
+        sudo snap install snapcraft --classic --channel stable
+        sudo usermod --append --groups lxd $USER
+        export PATH=$PATH:/snap/bin
+        sudo chown root:root /
+        sudo /snap/bin/lxd.migrate -yes
+        sudo /snap/bin/lxd waitready
+        sudo /snap/bin/lxd init --auto
+
+    displayName: 'Install Snapcraft'
+
+  - script: |
+        export PATH=$PATH:/snap/bin
         cd $(build.sourcesdirectory)/build
-        snapcraft
-        
+        sg lxd -c 'snapcraft --use-lxd'
+    displayName: 'Build Snap'
+
   - task: CopyFiles@2
     displayName: 'Publish Snap'
     inputs:
