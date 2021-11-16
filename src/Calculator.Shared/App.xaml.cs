@@ -163,6 +163,10 @@ namespace CalculatorApp
 				.AddConsole(LogLevel.Error);
 #endif
 #endif
+#if HAS_UNO
+			Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
+#endif
+
 		}
 #endif
 
