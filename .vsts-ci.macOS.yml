@@ -29,6 +29,7 @@ jobs:
 
   - task: UseDotNet@2
     displayName: 'Use .Net Core runtime 3.1.6'
+    retryCountOnTaskFailure: 3
     inputs:
       packageType: runtime
       version: 3.1.6
@@ -99,6 +100,7 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     condition: always()
+    retryCountOnTaskFailure: 3
     inputs:
       PathtoPublish: $(build.artifactstagingdirectory)
       ArtifactName: Uno-Calculator-macOS

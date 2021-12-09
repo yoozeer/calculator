@@ -19,6 +19,7 @@ jobs:
 
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
+    retryCountOnTaskFailure: 3
     inputs:
       packageType: sdk
       version: 5.0.102
@@ -31,6 +32,7 @@ jobs:
       ./emsdk activate $(EMSDK_VERSION)
 
     displayName: 'Setup Emscripten'
+    retryCountOnTaskFailure: 3
 
   - script: |
       source ~/emsdk/emsdk_env.sh
@@ -64,6 +66,7 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     condition: always()
+    retryCountOnTaskFailure: 3
     inputs:
       PathtoPublish: $(build.artifactstagingdirectory)
       ArtifactName: Uno-Calculator-wasm
