@@ -19,6 +19,7 @@ jobs:
 
   - task: UseDotNet@2
     displayName: 'Use .Net Core runtime 5.0.102'
+    retryCountOnTaskFailure: 3
     inputs:
       packageType: sdk
       version: 5.0.102
@@ -139,6 +140,7 @@ jobs:
 
   - task: ArchiveFiles@2
     displayName: 'Archive Skia win10-x64'
+    retryCountOnTaskFailure: 3
     inputs:
       rootFolderOrFile: '$(build.sourcesdirectory)\src\Calculator.Skia.Gtk\bin\Release\net5.0\win10-x64\publish'
       archiveFile: '$(Build.ArtifactStagingDirectory)/skia/Calculator-win10-x64.zip' 
@@ -146,6 +148,7 @@ jobs:
 
   - task: CopyFiles@2
     displayName: 'Publish Wasm Binaries'
+    retryCountOnTaskFailure: 3
     inputs:
       SourceFolder: $(build.sourcesdirectory)/src/Calculator.Wasm/bin/Release/net5.0/dist
       Contents: '**/*.*'
@@ -156,6 +159,7 @@ jobs:
 
   - task: CopyFiles@2
     displayName: 'Publish Android Binaries'
+    retryCountOnTaskFailure: 3
     inputs:
       SourceFolder: $(build.sourcesdirectory)/src/Calculator.Droid/bin/Release
       Contents: |
@@ -168,6 +172,7 @@ jobs:
 
   - task: CopyFiles@2
     displayName: 'Publish Windows Binaries'
+    retryCountOnTaskFailure: 3
     inputs:
       SourceFolder: $(build.sourcesdirectory)/src/Calculator.UWP/AppPackages
       Contents: '**/*.*'
@@ -178,6 +183,7 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     displayName: Publish Package Artifacts
+    retryCountOnTaskFailure: 3
     inputs:
       pathToPublish: $(build.artifactstagingdirectory)
       artifactType: container
