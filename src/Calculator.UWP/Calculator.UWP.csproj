@@ -15,10 +15,10 @@
       <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI">
-      <Version>4.0.0-dev.5594</Version>
+      <Version>4.1.0-dev.583</Version>
     </PackageReference>
-		<PackageReference Include="Uno.Core.Extensions.Disposables" Version="4.0.0-dev.7" />
-	</ItemGroup>
+    <PackageReference Include="Uno.Core.Extensions.Disposables" Version="4.0.1" />
+  </ItemGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
