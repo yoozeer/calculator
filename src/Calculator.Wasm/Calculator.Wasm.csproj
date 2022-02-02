@@ -16,7 +16,8 @@
 		<UseAOT Condition="($([MSBuild]::IsOsPlatform('Linux')) or ( $([MSBuild]::IsOsPlatform('Windows')) and '$(SkipWasmBuild)'=='' )) and '$(Configuration)'=='Release'">true</UseAOT>
 		<WasmShellMonoRuntimeExecutionMode Condition="'$(UseAOT)'!=''">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
 		<WasmShellEnableEmccProfiling>true</WasmShellEnableEmccProfiling>
-		<WasmShellGenerateAOTProfile>true</WasmShellGenerateAOTProfile>
+		
+		<!--<WasmShellGenerateAOTProfile>true</WasmShellGenerateAOTProfile>-->
 		
 		<!-- https://github.com/dotnet/runtime/issues/50508 -->
 		<WasmShellEnableAOTDeduplication>false</WasmShellEnableAOTDeduplication>
