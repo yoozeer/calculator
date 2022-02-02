@@ -13,13 +13,15 @@
 		<WasmPWAManifestFile>manifest.json</WasmPWAManifestFile>
 		<WasmShellIndexHtmlPath>$(MSBuildThisFileDirectory)index.html</WasmShellIndexHtmlPath>
 
-		<!--<UseAOT Condition="$([MSBuild]::IsOsPlatform('Linux')) or ( $([MSBuild]::IsOsPlatform('Windows')) and '$(SkipWasmBuild)'=='' )">true</UseAOT>-->
+		<UseAOT Condition="($([MSBuild]::IsOsPlatform('Linux')) or ( $([MSBuild]::IsOsPlatform('Windows')) and '$(SkipWasmBuild)'=='' )) and '$(Configuration)'=='Release'">true</UseAOT>
 		<WasmShellMonoRuntimeExecutionMode Condition="'$(UseAOT)'!=''">InterpreterAndAOT</WasmShellMonoRuntimeExecutionMode>
 		<WasmShellEnableEmccProfiling>true</WasmShellEnableEmccProfiling>
 		<WasmShellGenerateAOTProfile>true</WasmShellGenerateAOTProfile>
 		
 		<!-- https://github.com/dotnet/runtime/issues/50508 -->
 		<WasmShellEnableAOTDeduplication>false</WasmShellEnableAOTDeduplication>
+		
+		<UnoXamlResourcesTrimming>true</UnoXamlResourcesTrimming>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="..\Calculator.UWP\Assets\*.png" Link="Assets\%(FileName)%(Extension)" />
