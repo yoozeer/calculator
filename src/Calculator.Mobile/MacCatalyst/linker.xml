@@ -1,0 +1,6 @@
+<linker>
+  <assembly fullname="Uno.UI" />
+  <assembly fullname="Uno" />
+  <assembly fullname="Uno.Foundation" />
+  <assembly fullname="Xamarin.MacCatalyst" />
+</linker>
