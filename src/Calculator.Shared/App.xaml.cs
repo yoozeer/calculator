@@ -128,7 +128,8 @@ namespace CalculatorApp
         /// </summary>
         private static void InitializeLogging()
         {
-            var factory = LoggerFactory.Create(builder =>
+#if HAS_UNO
+			var factory = LoggerFactory.Create(builder =>
             {
 #if __WASM__
                 builder.AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
@@ -178,7 +179,6 @@ namespace CalculatorApp
 
             global::Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory = factory;
 
-#if HAS_UNO
 			global::Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
 #endif
         }
