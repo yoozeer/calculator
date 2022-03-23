@@ -19,7 +19,7 @@ jobs:
 
   - template: build/uno-ci/canary-updater.yml
   - template: build/uno-ci/gitversion.yml
-  - template: build/uno-ci/dotnet-install-macos.yml
+  - template: build/uno-ci/dotnet-install-mac.yml
   - template: build/uno-ci/jdk-setup.yml
 
   # Apply workaround for https://github.com/xamarin/xamarin-macios/issues/10652
