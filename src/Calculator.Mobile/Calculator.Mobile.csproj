@@ -35,6 +35,12 @@
 
 	<Choose>
 		<When Condition="'$(TargetFramework)'=='net6.0-android'">
+			<PropertyGroup>
+				<AndroidKeyStore>true</AndroidKeyStore>
+				<AndroidSigningKeyStore>calc-prod.keystore</AndroidSigningKeyStore>
+				<AndroidSigningKeyAlias>calc-prod</AndroidSigningKeyAlias>
+			</PropertyGroup>
+			
 			<ItemGroup>
 				<PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.4" />
 				<PackageReference Include="Uno.UniversalImageLoader" Version="1.9.35" />

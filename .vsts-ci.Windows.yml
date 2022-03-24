@@ -112,7 +112,7 @@ jobs:
 
   - script: |
       cd $(build.sourcesdirectory)/src/Calculator.mobile
-      dotnet publish -f:net6.0-android -c:Release
+      dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword) "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
     displayName: 'Build Store Packages (net6)'
 
   - task: MSBuild@1
