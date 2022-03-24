@@ -71,7 +71,7 @@
 			</ItemGroup>
 			<PropertyGroup Condition="'$(Configuration)'=='Release'">
 				<CodesignKey>iPhone Distribution</CodesignKey>
-				<RuntimeIdentifier>ios-x64</RuntimeIdentifier>
+				<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
 			</PropertyGroup>
 		</When>
 		<When Condition="'$(TargetFramework)'=='net6.0-maccatalyst'">
