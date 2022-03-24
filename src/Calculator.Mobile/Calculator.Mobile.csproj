@@ -37,7 +37,7 @@
 		<When Condition="'$(TargetFramework)'=='net6.0-android'">
 			<PropertyGroup>
 				<AndroidKeyStore>true</AndroidKeyStore>
-				<AndroidSigningKeyStore>calc-prod.keystore</AndroidSigningKeyStore>
+				<AndroidSigningKeyStore>..\Calculator.Droid\calc-prod.keystore</AndroidSigningKeyStore>
 				<AndroidSigningKeyAlias>calc-prod</AndroidSigningKeyAlias>
 			</PropertyGroup>
 			
