@@ -69,6 +69,20 @@
 				<PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.6.1" />
 				<PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.1" />
 			</ItemGroup>
+			<ItemGroup Condition=" '$(RuntimeIdentifier)' == 'iossimulator-x64' ">
+				<NativeReference Include="..\Calculator.iOS\NativeReferences/x86_64/libCalcManager.a">
+					<Kind>Static</Kind>
+				</NativeReference>
+			</ItemGroup>
+			<ItemGroup Condition=" '$(RuntimeIdentifier)' == 'ios-arm64' ">
+				<NativeReference Include="..\Calculator.iOS\NativeReferences/arm64/libCalcManager.a">
+					<Kind>Static</Kind>
+				</NativeReference>
+			</ItemGroup>
+			<PropertyGroup>
+				<MtouchExtraArgs>--registrar:static -gcc_flags "-lc++ -lstdc++"</MtouchExtraArgs>
+				<InvariantGlobalization>false</InvariantGlobalization>
+			</PropertyGroup>
 			<PropertyGroup Condition="'$(Configuration)'=='Release'">
 				<CodesignKey>iPhone Distribution</CodesignKey>
 				<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
