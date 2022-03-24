@@ -96,5 +96,5 @@ jobs:
     retryCountOnTaskFailure: 3
     inputs:
       PathtoPublish: $(build.artifactstagingdirectory)
-      ArtifactName: Uno-Calculator-macOS
+      ArtifactName: Uno-Calculator-catalyst
       ArtifactType: Container
