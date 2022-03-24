@@ -3,9 +3,9 @@
 <plist version="1.0">
   <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Calculator</string>
+	<string>Uno Calc</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.Calculator</string>
+    <string>uno.platform.calculator</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -40,6 +40,7 @@
 	<key>UIAppFonts</key>
 	<array>
 	  <string>Fonts/uno-fluentui-assets.ttf</string>
+	  <string>Fonts/CalcMDL2.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
