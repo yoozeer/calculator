@@ -109,6 +109,11 @@ jobs:
       logProjectEvents: false
       createLogFile: false
 
+  - script: |
+      cd $(build.sourcesdirectory)/src/Calculator.mobile
+      dotnet publish -f:net6.0-android -c:Release
+    displayName: 'Build Store Packages (net6)'
+
   - task: MSBuild@1
     displayName: 'Build Store Packages (Xamarin)'
     inputs:
@@ -136,11 +141,6 @@ jobs:
       restoreNugetPackages: false
       logProjectEvents: false
       createLogFile: false
-
-  - script: |
-      cd $(build.sourcesdirectory)/src/Calculator.mobile
-      dotnet publish -f:net6.0-android -c:Release
-    displayName: 'Build Store Packages (net6)'
 
   - script: dotnet publish -c Release -r win10-x64 --self-contained true $(build.sourcesdirectory)/src/Calculator.Skia.Gtk/Calculator.Skia.Gtk.csproj
     displayName: 'Build Skia win10-x64'
