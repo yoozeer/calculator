@@ -2,7 +2,7 @@ jobs:
 - job: Windows
 
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-2022'
 
   variables:
     ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
