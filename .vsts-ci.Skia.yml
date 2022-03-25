@@ -14,23 +14,7 @@ jobs:
   - checkout: self
     clean: true
 
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 2.2.x'
-    retryCountOnTaskFailure: 3
-    inputs:
-      packageType: runtime
-      version: 2.2.x
-
-  - task: nventiveCanaryUpdater@5
-    displayName: 'Canary Update'
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
-    inputs:
-      solution: src/Calculator.sln
-      branchToMerge: uno
-      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
-      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
-      nugetUpdaterVersion: 2.1.1
-      packageAuthor: nventive
+  - template: build/uno-ci/canary-updater.yml
 
   - script: |
       cd src/CalcManager
@@ -146,30 +130,7 @@ jobs:
   - checkout: self
     clean: true
 
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 2.2.0'
-    retryCountOnTaskFailure: 3
-    inputs:
-      packageType: runtime
-      version: 2.2.0
-
-  - task: UseDotNet@2
-    displayName: 'Use .Net Core runtime 3.1.3'
-    retryCountOnTaskFailure: 3
-    inputs:
-      packageType: runtime
-      version: 3.1.3
-
-  - task: nventiveCanaryUpdater@5
-    displayName: 'Canary Update'
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries')
-    inputs:
-      solution: src/Calculator.sln
-      branchToMerge: uno
-      summaryFile: '$(Build.ArtifactStagingDirectory)/Canary.md'
-      resultFile: '$(Build.ArtifactStagingDirectory)/result.json'
-      nugetUpdaterVersion: 2.0.6
-      packageAuthor: nventive
+  - template: build/uno-ci/canary-updater.yml
 
   - task: gitversion/setup@0
     retryCountOnTaskFailure: 3
