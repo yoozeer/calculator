@@ -1,9 +1,12 @@
-﻿#if __IOS__ || __ANDROID__ || __MACOS__ || NETFX_CORE
+﻿#if (!__MACCATALYST__ && !__IOS__) || (__IOS__ && !NET6_0_OR_GREATER) || __ANDROID__ || __MACOS__ || NETFX_CORE
+#define CAN_USE_APPCENTER
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-#if !__MACCATALYST__
+#if CAN_USE_APPCENTER
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -25,7 +28,7 @@ namespace CalculatorApp.Telemetry
 			var id = "d46819e8-746b-40b8-824e-53fb666b53e8";
 #endif
 
-#if !__MACCATALYST__
+#if CAN_USE_APPCENTER
 			AppCenter.Start(
 				id,
 				typeof(Analytics),
@@ -35,10 +38,9 @@ namespace CalculatorApp.Telemetry
 
 		static partial void TrackViewPartial(string viewName)
 		{
-#if !__MACCATALYST__
+#if CAN_USE_APPCENTER
 			Analytics.TrackEvent(viewName);
 #endif
 		}
 	}
 }
-#endif
