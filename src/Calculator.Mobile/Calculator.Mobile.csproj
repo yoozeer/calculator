@@ -48,6 +48,10 @@
 				<PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.6.1" />
 				<PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.1" />
 			</ItemGroup>
+			
+			<ItemGroup>
+				<AndroidAotProfile Include="Android/custom.aprof" />
+			</ItemGroup>
 	
 			<ItemGroup>
 				<AndroidNativeLibrary Include="..\Calculator.Droid\libs\ARM\$(Configuration)\libCalcManager.so">
