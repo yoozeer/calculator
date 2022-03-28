@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="Uno.UI" />
+  <assembly fullname="Uno" />
+  <assembly fullname="Uno.Foundation" />
+</linker>

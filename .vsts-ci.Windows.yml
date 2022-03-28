@@ -2,7 +2,7 @@ jobs:
 - job: Windows
 
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-2022'
 
   variables:
     ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
@@ -23,6 +23,9 @@ jobs:
     inputs:
       packageType: sdk
       version: 6.0.200
+
+  - template: build/uno-ci/dotnet-install-windows.yml
+  - template: build/uno-ci/jdk-setup.yml
 
   - task: MSBuild@1
     inputs:
@@ -107,8 +110,26 @@ jobs:
       logProjectEvents: false
       createLogFile: false
 
+  - script: |
+      cd $(build.sourcesdirectory)/src/Calculator.mobile
+      dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword) "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+    displayName: 'Build Store Packages (net6)'
+
+  - task: CopyFiles@2
+    displayName: 'Publish Android net6 Binaries'
+    retryCountOnTaskFailure: 3
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Mobile/bin/Release/net6.0-android
+      Contents: |
+        **/*.aab
+        **/*.apk
+      TargetFolder: $(build.artifactstagingdirectory)/android
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
   - task: MSBuild@1
-    displayName: 'Build Store Packages'
+    displayName: 'Build Store Packages (Xamarin)'
     inputs:
       solution: src/Calculator.windows-ci-only.slnf
       msbuildLocationMethod: version

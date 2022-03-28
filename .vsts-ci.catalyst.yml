@@ -1,0 +1,100 @@
+jobs:
+- job: Catalyst
+
+  pool:
+    vmImage: 'macOS-11'
+
+  variables:
+    - name: NUGET_PACKAGES
+      value: $(build.sourcesdirectory)/.nuget
+    - name: VersionCodeOffset
+      value: 400559 # last value for the APK release
+    - group: apple.appstore.distribution.macos
+    - group: apple.appstore.distribution
+
+  workspace:
+     clean: all
+
+  steps:
+
+  - template: build/uno-ci/canary-updater.yml
+  - template: build/uno-ci/gitversion.yml
+  - template: build/uno-ci/dotnet-install-mac.yml
+  - template: build/uno-ci/jdk-setup.yml
+
+  # Apply workaround for https://github.com/xamarin/xamarin-macios/issues/10652
+  - bash: |
+        curl -o xamarinmac.pkg 'https://bosstoragemirror.blob.core.windows.net/wrench/xcode12.4/a4c70e7d04e3904d17aa60f6d640eb048081c757/4477741/package/notarized/xamarin.mac-7.4.0.10.pkg'
+        sudo installer -pkg xamarinmac.pkg -target /
+
+    displayName: Apply Xamarin.mac workaround
+
+  - task: UseDotNet@2
+    displayName: 'Use .Net Core runtime 3.1.6'
+    retryCountOnTaskFailure: 3
+    inputs:
+      packageType: runtime
+      version: 3.1.6
+
+  - task: InstallAppleCertificate@2
+    displayName: Install Bundle Apple Certificate
+    inputs:
+      certSecureFile: 'apple.appstore.distribution.p12'
+      certPwd: '$(appleappstorecertificatepassword)'
+      keychain: 'temp'
+      deleteCert: true
+
+  - task: InstallAppleCertificate@2
+    displayName: Install PKG Apple Certificate
+    inputs:
+      certSecureFile: '3rd-party-mac-developer.p12'
+      certPwd: '$(applepkgcertificatepassword)'
+      deleteCert: true
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: 'Install Apple Provisioning Profile'
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: Uno_Calculator_macOS.mobileprovision # Located in the Library's secure files
+
+  - bash: |
+      cd $(build.sourcesdirectory)/src/CalcManager
+      chmod +x build_catalyst.sh
+      ./build_catalyst.sh
+
+    displayName: Build native CalcManager
+
+  - task: MSBuild@1
+    inputs:
+      solution: '$(build.sourcesdirectory)/src/build/build.csproj'
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: /r /p:BuildPlatformTarget=iPhoneSimulator /bl:$(build.artifactstagingdirectory)/build.binlog 
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: true
+      createLogFile: true
+
+  - bash: |
+      cd $(build.sourcesdirectory)/src/Calculator.mobile
+      dotnet build -f net6.0-maccatalyst -c Release /p:CreatePackage=true /bl:$(build.artifactstagingdirectory)/build.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
+
+  - task: CopyFiles@2
+    displayName: 'Publish Catalyst Binaries'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Mobile/bin/Release/net6.0-maccatalyst/maccatalyst-x64
+      Contents: '*.pkg'
+      TargetFolder: $(build.artifactstagingdirectory)
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: PublishBuildArtifacts@1
+    condition: always()
+    retryCountOnTaskFailure: 3
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      ArtifactName: Uno-Calculator-catalyst
+      ArtifactType: Container

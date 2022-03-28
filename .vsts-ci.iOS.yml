@@ -2,7 +2,7 @@ jobs:
 - job: iOS
 
   pool:
-    vmImage: macOS-10.15
+    vmImage: macOS-11
 
   variables:
     - name: NUGET_PACKAGES
@@ -18,6 +18,8 @@ jobs:
 
   - template: build/uno-ci/canary-updater.yml
   - template: build/uno-ci/gitversion.yml
+  - template: build/uno-ci/dotnet-install-mac.yml
+  - template: build/uno-ci/jdk-setup.yml
 
   - task: UseDotNet@2
     displayName: 'Use .Net Core runtime 3.1.201'
@@ -59,6 +61,22 @@ jobs:
       restoreNugetPackages: false
       logProjectEvents: true
       createLogFile: true
+
+  - bash: |
+      cd $(build.sourcesdirectory)/src/Calculator.mobile
+      dotnet build -f net6.0-ios -c Release /p:ArchiveOnBuild=true /bl:$(build.artifactstagingdirectory)/build.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+
+    displayName: 'Build iOS Binaries (net6)'
+
+  - task: CopyFiles@2
+    displayName: 'Publish iOS Binaries (net6)'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Mobile/bin/Release/net6.0-ios/ios-arm64
+      Contents: '*.ipa'
+      TargetFolder: $(build.artifactstagingdirectory)
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
 
   - task: MSBuild@1
     inputs:
