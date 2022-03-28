@@ -49,9 +49,13 @@
 				<PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.1" />
 			</ItemGroup>
 			
-			<ItemGroup>
+			<ItemGroup Condition="'$(Configuration)'=='Release'">
 				<AndroidAotProfile Include="Android/custom.aprof" />
 			</ItemGroup>
+
+			<PropertyGroup Condition="'$(Configuration)'=='Release'">
+				<RunAOTCompilation>true</RunAOTCompilation>
+			</PropertyGroup>
 	
 			<ItemGroup>
 				<AndroidNativeLibrary Include="..\Calculator.Droid\libs\ARM\$(Configuration)\libCalcManager.so">
