@@ -82,18 +82,19 @@
 					<Kind>Static</Kind>
 				</NativeReference>
 			</ItemGroup>
-			<PropertyGroup>
-				<MtouchExtraArgs>--registrar:static -gcc_flags "-lc++ -lstdc++"</MtouchExtraArgs>
-				<InvariantGlobalization>false</InvariantGlobalization>
-			</PropertyGroup>
-			<PropertyGroup Condition="'$(Configuration)'=='Release'">
+			<ItemGroup>
 				<!-- Required to avoid
 					 Undefined symbols for architecture arm64:
 							"_kSecImportExportPassphrase", referenced from:
 									_AppleCryptoNative_X509ImportCertificate in libSystem.Security.Cryptography.Native.Apple.a(pal_x509_ios.c.o)
 				-->
 				<_NativeExecutableFrameworks Include="Security" />
-
+			</ItemGroup>
+			<PropertyGroup>
+				<MtouchExtraArgs>--registrar:static -gcc_flags "-lc++ -lstdc++"</MtouchExtraArgs>
+				<InvariantGlobalization>false</InvariantGlobalization>
+			</PropertyGroup>
+			<PropertyGroup Condition="'$(Configuration)'=='Release'">
 				<CodesignKey>iPhone Distribution</CodesignKey>
 				<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
 			</PropertyGroup>
