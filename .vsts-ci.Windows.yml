@@ -112,7 +112,7 @@ jobs:
 
   - script: |
       cd $(build.sourcesdirectory)/src/Calculator.mobile
-      dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword) "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+      dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword) "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" /bl:$(build.artifactstagingdirectory)/android/msbuild-net6.binlog
     displayName: 'Build Store Packages (net6)'
 
   - task: CopyFiles@2
@@ -135,7 +135,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:SkipWasmBuild=true /p:BuildForPlayStore=true /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+      msbuildArguments: /r /p:Configuration=Release /detailedsummary /p:SkipWasmBuild=true /p:BuildForPlayStore=true /p:AndroidSigningKeyPass=$(KeystorePassword) /p:AndroidSigningStorePass=$(KeystorePassword)  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" /bl:$(build.artifactstagingdirectory)/android/msbuild-xamarin.binlog
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false
@@ -204,6 +204,7 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     displayName: Publish Package Artifacts
+    condition: always()
     retryCountOnTaskFailure: 3
     inputs:
       pathToPublish: $(build.artifactstagingdirectory)
