@@ -71,6 +71,8 @@ jobs:
       version: 5.0.102
 
   - task: MSBuild@1
+    displayName: 'Setup versions'
+    retryCountOnTaskFailure: 3
     inputs:
       solution: src/build/build.csproj
       msbuildLocationMethod: version
@@ -162,6 +164,8 @@ jobs:
     displayName: 'Copy CalcManager to final location'
 
   - task: MSBuild@1
+    displayName: 'Setup versions'
+    retryCountOnTaskFailure: 3
     inputs:
       solution: src/build/build.csproj
       msbuildLocationMethod: version

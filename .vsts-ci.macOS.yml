@@ -9,8 +9,7 @@ jobs:
       value: $(build.sourcesdirectory)/.nuget
     - name: VersionCodeOffset
       value: 400559 # last value for the APK release
-    - group: apple.appstore.distribution.macos
-    - group: apple.appstore.distribution
+    - group: unoplatform.apple.ios.appstore.distribution
 
   workspace:
      clean: all
@@ -35,19 +34,26 @@ jobs:
       version: 3.1.6
 
   - task: InstallAppleCertificate@2
-    displayName: Install Bundle Apple Certificate
+    displayName: Install Certificate
     inputs:
-      certSecureFile: 'apple.appstore.distribution.p12'
-      certPwd: '$(appleappstorecertificatepassword)'
-      keychain: 'temp'
+      certSecureFile: UnoPlatform-Apple-Distribution.p12
+      certPwd: $(appleappstorecertificatepassword)
+      keychain: temp
       deleteCert: true
 
   - task: InstallAppleCertificate@2
-    displayName: Install PKG Apple Certificate
+    displayName: Install Certificate
     inputs:
-      certSecureFile: '3rd-party-mac-developer.p12'
-      certPwd: '$(applepkgcertificatepassword)'
+      certSecureFile: UnoPlatform-MacInstaller.p12
+      certPwd: $(appleappstorecertificatepassword)
+      keychain: temp
       deleteCert: true
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: 'Install Apple Provisioning Profile'
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: Uno_Calculator_Canary_Catalyst.provisionprofile # Located in the Library's secure files
 
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple Provisioning Profile'

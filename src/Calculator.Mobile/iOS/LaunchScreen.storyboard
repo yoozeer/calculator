@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="5" launchScreen="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
         <scene sceneID="4">
             <objects>
                 <viewController id="5" sceneMemberID="viewController">
@@ -12,22 +13,24 @@
                         <viewControllerLayoutGuide type="top" id="2"/>
                         <viewControllerLayoutGuide type="bottom" id="3"/>
                     </layoutGuides>
-                    <view contentMode="scaleToFill" id="55" key="view">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <view key="view" contentMode="scaleToFill" id="55">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" colorSpace="custom" customColorSpace="sRGB" red="1" green="1" blue="1" alpha="1"/>
+                        <color key="backgroundColor" customColorSpace="sRGB" colorSpace="calibratedRGB" red="0" green="0.471" blue="0.843" alpha="1"/>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0" green="0.471" blue="0.843" alpha="1"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="56" translatesAutoresizingMaskIntoConstraints="NO" image="SplashScreen.png">
-                                <rect key="frame" x="58" y="120" width="204" height="242"/>
-                                <constraints>
-                                    <constraint id="91" firstItem="56" firstAttribute="width" constant="204"/>
-                                    <constraint id="92" firstItem="56" firstAttribute="height" constant="242"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="321" translatesAutoresizingMaskIntoConstraints="NO" image="splashscreen_icon.png" misplaced="YES">
+                                <rect key="frame" x="122" y="167" width="169" height="169"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="325" translatesAutoresizingMaskIntoConstraints="NO" image="uno.png">
+                                <rect key="frame" x="126.5" y="640" width="161" height="56"/>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint id="80" firstItem="55" firstAttribute="centerY" secondItem="56" secondAttribute="centerY" constant="0"/>
-                            <constraint id="81" firstItem="55" firstAttribute="centerX" secondItem="56" secondAttribute="centerX" constant="0"/>
+                            <constraint id="546" firstItem="321" firstAttribute="centerX" secondItem="55" secondAttribute="centerX"/>
+                            <constraint id="547" firstAttribute="centerY" secondItem="321" secondAttribute="centerY" constant="97"/>
+                            <constraint id="774" firstItem="325" firstAttribute="centerX" secondItem="55" secondAttribute="centerX"/>
+                            <constraint id="775" firstItem="3" firstAttribute="top" secondItem="325" secondAttribute="bottom" constant="40"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,16 +40,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="iPhone-40x40@3x.png" width="40" height="40"/>
-        <image name="iPhone-60x60@2x.png" width="60" height="60"/>
-        <image name="iPad-76x76@2x.png" width="76" height="76"/>
-        <image name="iPhone-40x40@3x.png" width="40" height="40"/>
-        <image name="Icon-Small.png" width="29" height="29"/>
-        <image name="SplashScreen.png" width="620" height="300"/>
+        <image name="splashscreen_icon.png" width="507" height="507"/>
+        <image name="uno.png" width="161" height="56"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
-    </simulatedMetricsContainer>
 </document>

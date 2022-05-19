@@ -9,7 +9,7 @@ jobs:
       value: $(build.sourcesdirectory)/.nuget
     - name: VersionCodeOffset
       value: 400559 # last value for the APK release
-    - group: apple.appstore.distribution
+    - group: unoplatform.apple.ios.appstore.distribution
 
   workspace:
      clean: all
@@ -31,7 +31,7 @@ jobs:
   - task: InstallAppleCertificate@2
     displayName: Install Certificate
     inputs:
-      certSecureFile: apple.appstore.distribution.p12
+      certSecureFile: UnoPlatform-Apple-Distribution.p12
       certPwd: $(appleappstorecertificatepassword)
       keychain: temp
       deleteCert: true
@@ -41,6 +41,12 @@ jobs:
     inputs:
       provisioningProfileLocation: secureFiles
       provProfileSecureFile: Uno_Calculator.mobileprovision
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: Install Provisioning Profile (Canary)
+    inputs:
+      provisioningProfileLocation: secureFiles
+      provProfileSecureFile: Uno_Calculator_Canary_iOS.mobileprovision
 
   - bash: |
       cd $(build.sourcesdirectory)/src/CalcManager
@@ -64,15 +70,17 @@ jobs:
 
   - bash: |
       cd $(build.sourcesdirectory)/src/Calculator.mobile
-      dotnet build -f net6.0-ios -c Release /p:ArchiveOnBuild=true /bl:$(build.artifactstagingdirectory)/build.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
+      dotnet publish -f net6.0-ios -c Release /p:ArchiveOnBuild=true /bl:$(build.artifactstagingdirectory)/build-net6.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION"
 
     displayName: 'Build iOS Binaries (net6)'
 
   - task: CopyFiles@2
     displayName: 'Publish iOS Binaries (net6)'
     inputs:
-      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Mobile/bin/Release/net6.0-ios/ios-arm64
-      Contents: '*.ipa'
+      SourceFolder: $(build.sourcesdirectory)/src/Calculator.Mobile/bin/Release/net6.0-ios
+      Contents:  |
+        **/*.ipa
+        **/*.dSym/**
       TargetFolder: $(build.artifactstagingdirectory)
       CleanTargetFolder: false
       OverWrite: false
@@ -84,7 +92,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /p:Platform=iPhone /bl:$(build.artifactstagingdirectory)/build.binlog  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
+      msbuildArguments: /r /p:Configuration=Release /p:Platform=iPhone /bl:$(build.artifactstagingdirectory)/build-xamarin.binlog  "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false

@@ -2,15 +2,14 @@ jobs:
 - job: Catalyst
 
   pool:
-    vmImage: 'macOS-11'
+    vmImage: 'macos-11'
 
   variables:
     - name: NUGET_PACKAGES
       value: $(build.sourcesdirectory)/.nuget
     - name: VersionCodeOffset
       value: 400559 # last value for the APK release
-    - group: apple.appstore.distribution.macos
-    - group: apple.appstore.distribution
+    - group: unoplatform.apple.ios.appstore.distribution
 
   workspace:
      clean: all
@@ -37,25 +36,32 @@ jobs:
       version: 3.1.6
 
   - task: InstallAppleCertificate@2
-    displayName: Install Bundle Apple Certificate
+    displayName: Install Certificate
     inputs:
-      certSecureFile: 'apple.appstore.distribution.p12'
-      certPwd: '$(appleappstorecertificatepassword)'
-      keychain: 'temp'
+      certSecureFile: UnoPlatform-Apple-Distribution.p12
+      certPwd: $(appleappstorecertificatepassword)
+      keychain: temp
       deleteCert: true
 
   - task: InstallAppleCertificate@2
-    displayName: Install PKG Apple Certificate
+    displayName: Install Certificate
     inputs:
-      certSecureFile: '3rd-party-mac-developer.p12'
-      certPwd: '$(applepkgcertificatepassword)'
+      certSecureFile: UnoPlatform-MacInstaller.p12
+      certPwd: $(appleappstorecertificatepassword)
+      keychain: temp
       deleteCert: true
 
   - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple Provisioning Profile'
     inputs:
       provisioningProfileLocation: 'secureFiles'
-      provProfileSecureFile: Uno_Calculator_macOS.mobileprovision # Located in the Library's secure files
+      provProfileSecureFile: Uno_Calculator_Canary_Catalyst.provisionprofile # Located in the Library's secure files
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: 'Install Apple Provisioning Profile'
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: Uno_Calculator_catalyst.provisionprofile # Located in the Library's secure files
 
   - bash: |
       cd $(build.sourcesdirectory)/src/CalcManager
@@ -79,13 +85,15 @@ jobs:
 
   - bash: |
       cd $(build.sourcesdirectory)/src/Calculator.mobile
-      dotnet build -f net6.0-maccatalyst -c Release /p:CreatePackage=true /bl:$(build.artifactstagingdirectory)/build.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
+      dotnet build -f net6.0-maccatalyst -c Release /bl:$(build.artifactstagingdirectory)/build.binlog "/p:InformationalVersion=$GITVERSION_INFORMATIONALVERSION" 
 
   - task: CopyFiles@2
     displayName: 'Publish Catalyst Binaries'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/src/Calculator.Mobile/bin/Release/net6.0-maccatalyst/maccatalyst-x64
-      Contents: '*.pkg'
+      Contents: |
+        *.pkg
+        *.dSym/**
       TargetFolder: $(build.artifactstagingdirectory)
       CleanTargetFolder: false
       OverWrite: false

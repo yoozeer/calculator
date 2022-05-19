@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using Windows.ApplicationModel;
@@ -128,7 +129,15 @@ namespace CalculatorApp
         /// </summary>
         private static void InitializeLogging()
         {
-#if HAS_UNO
+			AppDomain.CurrentDomain.UnhandledException += (s, e) => {
+                global::System.Console.WriteLine(e.ExceptionObject);
+			};
+
+			TaskScheduler.UnobservedTaskException += (s, e) => {
+                global::System.Console.WriteLine(e.Exception);
+			};
+
+#if HAS_UNO || __IOS__
 			var factory = LoggerFactory.Create(builder =>
             {
 #if __WASM__
@@ -181,7 +190,7 @@ namespace CalculatorApp
 
 			global::Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
 #endif
-        }
+		}
 
 		/// <summary>
 		/// Return True if animation is enabled by user setting.
