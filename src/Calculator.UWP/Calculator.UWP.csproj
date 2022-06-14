@@ -9,7 +9,7 @@
       <Version>2.6.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.8</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime">
       <Version>4.3.1</Version>
@@ -35,7 +35,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>Calculator.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>FDC8F0B80382BBB3F5AC532336EFB5932B7779B6</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>2B2DFFA115E141DAE95EA508DF06E55B7710778F</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
